@@ -158,6 +158,7 @@ void consultes() {
 }
 
 int main() {
+    //primer canvi
     int opt;
     cout << "1. Gestio usuari" << endl;
     cout << "2. Gestio continguts" << endl;
