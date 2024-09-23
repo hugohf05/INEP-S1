@@ -4,6 +4,7 @@
 //
 // Carlos Agudo (cybernze)
 // Sergio Gonzalez Carazo
+// David Pérez Cruz (dperezcruz024)
 #include <iostream>
 using namespace std;
 
