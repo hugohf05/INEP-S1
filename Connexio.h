@@ -16,9 +16,13 @@ private:
     sql::mysql::MySQL_Driver* driver;
     sql::Connection* con;
 
+    ConnexioBD();
+
+    static ConnexioBD* instance;
+
 public:
     // Constructor: Crea la connexió a la base de dades
-    ConnexioBD(const string& host, const string& usuari, const string& contrasenya, const string& base_de_dades);
+    static ConnexioBD* getInstance();
 
     // Destructor: Tanca la connexió a la base de dades
     ~ConnexioBD();

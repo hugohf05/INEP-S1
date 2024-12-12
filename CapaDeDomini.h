@@ -1,4 +1,6 @@
-#include <vector>
+#include "DTOUsuari.h"
+#include "PassarelaUsuari.h"
+
 class CapaDeDomini
 {
 private:
@@ -14,7 +16,7 @@ public:
 	}
 	// aquí tots els métodes que
 	void registreUsuari(string nom, string sobrenom, string correu);
-	vector<string> consultaUsuari(string sobrenom_usuari);
-	void modificaUsuari(ConnexioBD& connexio);
-	void esborraUsuari(ConnexioBD& connexio);
+	DTOUsuari consultaUsuari(string sobrenom_usuari);
+	void modificaUsuari();
+	void esborraUsuari();
 };

@@ -2,7 +2,7 @@
 #define PASSARELA_USUARI_H
 
 #include <string>
-#include "ConnexioBD.h" // Incluye la clase para gestionar la base de datos
+#include "Connexio.h" // Incluye la clase para gestionar la base de datos
 
 using namespace std;
 
@@ -13,6 +13,7 @@ private:
     string correu_electronic;
 
 public:
+    PassarelaUsuari();
     // Constructor
     PassarelaUsuari(const string& sobrenomU, const string& nomU, const string& correuElectronicU);
 
