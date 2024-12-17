@@ -17,7 +17,11 @@ public:
 		return instance;
 	}
 	// aquí tots els métodes que
+	void iniciarSessio();
 	void registreUsuari();
+	void tancarSessio();
+	
+	//Menú Gestió Usuaris
 	void consultaUsuari();
 	void modificaUsuari();
 	void esborraUsuari();
