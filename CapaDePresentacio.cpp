@@ -1,6 +1,31 @@
 #include "CapaDePresentacio.h"
 using namespace std;
 
+void CapaDePresentacio::iniciarSessio() {
+    string sobrenom, contrasenya;
+
+    cout << "** Inici Sessio **" << endl;
+    cout << "Sobrenom:" << endl;
+    cin >> sobrenom;
+    cout << "Contrasenya:" << endl;
+    cin >> contrasenya;
+
+    CapaDeDomini& domini = CapaDeDomini::getInstance();
+
+    try {
+        if (domini.verificaDadesInici(sobrenom, contrasenya)) {
+            //Falta hacer el metodo en la capa de domini
+            cout << "Sessio iniciada correctament." << endl;
+        }
+        else {
+            throw runtime_error("Credencials incorrectes.");
+        }
+    }
+    catch (const exception& e) {
+        cout << "Error: No s'han pogut verificar les credencials." << endl;
+    }
+}
+
 void CapaDePresentacio::registreUsuari() {
     string nom, sobrenom, correu;
     cout << "Nom: " << endl;
@@ -23,6 +48,24 @@ void CapaDePresentacio::registreUsuari() {
     }
     else {
         cout << "Error al registrar l'usuari." << endl;
+    }
+}
+
+void CapaDePresentacio::tancarSessio() {
+    char opcio;
+    cout << "** Tancar sessio **" << endl;
+    cout << "Vols tancar la sessio (S/N): ";
+    cin >> opcio;
+
+    if (opcio == 'S' || opcio == 's') {
+        cout << "Sessio tancada correctament!" << endl;
+        //Falta manejar el cierre de sesion
+    }
+    else if (opcio == 'N' || opcio == 'n') {
+        cout << "La sessio no s'ha tancat." << endl;
+    }
+    else {
+        cout << "Opció no vàlida. La sessio no s'ha tancat." << endl;
     }
 }
 
