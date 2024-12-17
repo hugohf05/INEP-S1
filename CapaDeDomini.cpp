@@ -10,6 +10,15 @@ void CapaDeDomini::registreUsuari(string nom, string sobrenom, string correu) {
     }
 }
 
+bool CapaDeDomini::verificaCredencials(const std::string& sobrenom, const std::string& contrasenya) {
+    try {
+        DTOUsuari usuari = consultaUsuari(sobrenom);
+        return usuari.obteContrasenya() == contrasenya;
+    } catch (const std::runtime_error& e) {
+        return false; // Si el usuario no existe, retorna false.
+    }
+}
+
 DTOUsuari CapaDeDomini::consultaUsuari(string sobrenom_usuari) {
     CercadoraUsuari usuari;
     PassarelaUsuari usu = usuari.cercaPerSobrenom(sobrenom_usuari);
