@@ -45,6 +45,15 @@ void PassarelaUsuari::setSubscripcio(const string& nouSubscripcio) { subscripcio
 void PassarelaUsuari::insereix() {
     try {
         ConnexioBD& con = *ConnexioBD::getInstance();
+
+        // Verificar si el sobrenom o el correu ya existen
+        string checkQuery = "SELECT COUNT(*) FROM Usuari WHERE sobrenom = '" + sobrenom +
+            "' OR correu_electronic = '" + correu_electronic + "';";
+        sql::ResultSet* result = con.consultaSQL(checkQuery);
+
+        if (result->next() && result->getInt(1) > 0) {
+            throw runtime_error("El sobrenom o el correu electrònic ja existeixen.");
+        }
         string query = "INSERT INTO Usuari (sobrenom, nom, correu_electronic, contrasenya, "
             "data_naixement, subscripcio) VALUES ('" +
             sobrenom + "', '" + nom + "', '" + correu_electronic + "', '" +
