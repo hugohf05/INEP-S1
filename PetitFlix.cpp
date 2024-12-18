@@ -20,4 +20,8 @@ public:
         }
         return usuariLoggejat;
     }
+
+    bool estaUsuariLoggejat() const {
+        return usuariLoggejat != nullptr;
+    }
 };
