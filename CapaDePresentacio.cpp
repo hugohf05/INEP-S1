@@ -1,7 +1,7 @@
 #include "CapaDePresentacio.h"
 using namespace std;
 
-void CapaDePresentacio::iniciarSessio() {
+/*void CapaDePresentacio::iniciarSessio() {
     string sobrenom, contrasenya;
 
     cout << "** Inici Sessio **" << endl;
@@ -25,22 +25,28 @@ void CapaDePresentacio::iniciarSessio() {
         cout << "Error: No s'han pogut verificar les credencials." << endl;
     }
 }
+*/
 
 void CapaDePresentacio::registreUsuari() {
     string nom, sobrenom, contrasenya, correu;
     string dataNaixement, modalitat;
 
     cout << "** Registrar Usuari **" << endl;
-    cout << "Nom complet: ";
-    getline(cin, nom);
+    cout << "Nom: ";
+    cin >> nom;
+    cout << endl;
     cout << "Sobrenom: ";
-    getline(cin, sobrenom);
+    cin >> sobrenom;
+    cout << endl;
     cout << "Contrasenya: ";
-    getline(cin, contrasenya);
+    cin >> contrasenya;
+    cout << endl;
     cout << "Correu electrònic: ";
-    getline(cin, correu);
+    cin >> correu;
+    cout << endl;
     cout << "Data de naixement (YYYY-MM-DD): ";
-    getline(cin, dataNaixement);
+    cin >> dataNaixement;
+    cout << endl;
     cout << "Modalitats de subscripcio disponibles: " << endl;
     cout << "   < 1. Completa" << endl;
     cout << "   < 2. Cinefil" << endl;
@@ -128,7 +134,8 @@ void CapaDePresentacio::esborraUsuari() {
     cout << "** Esborrar Usuari **" << endl;
     cout << "Per confirmar l'esborrat, s'ha d'entrar la contrasentya ...: " << endl;
     cout << "Contrasenya: ";
-    getline(cin, contrasenya);
+    cin >> contrasenya;
+    cout << endl;
 
     try {
         CapaDeDomini& domini = CapaDeDomini::getInstance();

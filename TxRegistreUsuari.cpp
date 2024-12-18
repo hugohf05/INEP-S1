@@ -1,4 +1,5 @@
 #include <iostream>
+#include "PassarelaUsuari.h"
 using namespace std;
 
 class TxRegistreUsuari {
@@ -17,7 +18,7 @@ public:
             throw runtime_error("Els camps sobrenom, nom, contrasenya i correu son obligatoris.");
         }
 
-        PassarelaUsuari usuari(sobrenom, nom, contrasenya, correu, data_naixement, subscripcio);
+        PassarelaUsuari usuari(sobrenom, nom, correu, contrasenya, data_naixement, subscripcio);
 
         usuari.insereix();
     }

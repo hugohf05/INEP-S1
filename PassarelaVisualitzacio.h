@@ -5,7 +5,7 @@ private:
     string titolPelicula;
 
 public:
-    explicit PassarelaVisualitzacio(const string& titol) : titolPelicula(titol) {}
+    PassarelaVisualitzacio(const string& titol);
 
     void registra();
 };

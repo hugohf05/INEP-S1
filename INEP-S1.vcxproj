@@ -132,18 +132,30 @@
   <ItemGroup>
     <ClCompile Include="CapaDeDomini.cpp" />
     <ClCompile Include="CapaDePresentacio.cpp" />
+    <ClCompile Include="CercadoraContingut.cpp" />
+    <ClCompile Include="CercadoraPelicula.cpp" />
     <ClCompile Include="CercadoraUsuari.cpp" />
     <ClCompile Include="Connexio.cpp" />
     <ClCompile Include="INEP-S1.cpp" />
+    <ClCompile Include="PassarelaPelicula.cpp" />
     <ClCompile Include="PassarelaUsuari.cpp" />
+    <ClCompile Include="PassarelaVisualitzacio.cpp" />
+    <ClCompile Include="PetitFlix.cpp" />
+    <ClCompile Include="TxEsborraUsuari.cpp" />
+    <ClCompile Include="TxRegistreUsuari.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CapaDeDomini.h" />
     <ClInclude Include="CapaDePresentacio.h" />
+    <ClInclude Include="CercadoraContingut.h" />
+    <ClInclude Include="CercadoraPelicula.h" />
     <ClInclude Include="CercadoraUsuari.h" />
     <ClInclude Include="Connexio.h" />
+    <ClInclude Include="DTOPelicula.h" />
     <ClInclude Include="DTOUsuari.h" />
+    <ClInclude Include="PassarelaPelicula.h" />
     <ClInclude Include="PassarelaUsuari.h" />
+    <ClInclude Include="PassarelaVisualitzacio.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

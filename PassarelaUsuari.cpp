@@ -45,10 +45,10 @@ void PassarelaUsuari::setSubscripcio(const string& nouSubscripcio) { subscripcio
 void PassarelaUsuari::insereix() {
     try {
         ConnexioBD& con = *ConnexioBD::getInstance();
-        string query = "INSERT INTO usuari (sobrenom, nom, contrasenya, correu_electronic, "
+        string query = "INSERT INTO Usuari (sobrenom, nom, correu_electronic, contrasenya, "
             "data_naixement, subscripcio) VALUES ('" +
-            sobrenom + "', '" + nom + "', '" + contrasenya + "', '" +
-            correu_electronic + "', '" + data_naixement + "', '" + subscripcio + "');";
+            sobrenom + "', '" + nom + "', '" + correu_electronic + "', '" +
+            contrasenya + "', '" + data_naixement + "', '" + subscripcio + "');";
         con.execSQL(query);
     }
     catch (sql::SQLException& e) {
@@ -75,7 +75,7 @@ void PassarelaUsuari::modifica() {
 void PassarelaUsuari::esborra() {
     try {
         ConnexioBD& con = *ConnexioBD::getInstance();
-        string query = "DELETE FROM usuari WHERE sobrenom = '" + sobrenom + "';";
+        string query = "DELETE FROM Usuari WHERE sobrenom = '" + sobrenom + "';";
         con.execSQL(query);
         cout << "Usuari '" << sobrenom << "' esborrat correctament." << endl;
     }

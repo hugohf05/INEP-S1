@@ -3,9 +3,10 @@
 
 void CapaDeDomini::registreUsuari(const string& sobrenomU, const string& nomU,
     const string& correu_electronicU, const string& contrasenyaU,
-    const string& data_naixementU, const string& subscricpioU) {
+    const string& data_naixementU, const string& subscripcioU) {
+
     try {
-        TxRegistreUsuari txRU(sobrenomU, nomU, correu_electronicU, contrasenyaU, data_naixementU, subscricpioU);
+        TxRegistreUsuari txRU(sobrenomU, nomU, correu_electronicU, contrasenyaU, data_naixementU, subscripcioU);
         txRU.executar();
     }
     catch (const sql::SQLException& e) {
@@ -13,6 +14,7 @@ void CapaDeDomini::registreUsuari(const string& sobrenomU, const string& nomU,
     }
 }
 
+/*
 bool CapaDeDomini::verificaCredencials(const string& sobrenom, const string& contrasenya) {
     try {
         DTOUsuari usuari = consultaUsuari(sobrenom);
@@ -21,6 +23,7 @@ bool CapaDeDomini::verificaCredencials(const string& sobrenom, const string& con
         return false; // Si el usuario no existe, retorna false.
     }
 }
+*/
 
 DTOUsuari CapaDeDomini::consultaUsuari(string sobrenom_usuari) {
     CercadoraUsuari usuari;

@@ -22,14 +22,14 @@ void PassarelaPelicula::setDuracio(int novaDuracio) { duracio = novaDuracio; }
 void PassarelaPelicula::setDataEstrena(const string& novaDataEstrena) { dataEstrena = novaDataEstrena; }
 
 void PassarelaPelicula::insereix() {
-    ConnexioBD& connexio = ConnexioBD::getInstance();
+    ConnexioBD& connexio = *ConnexioBD::getInstance();
     string query = "INSERT INTO pelicula (titol, descripcio, qualificacio, duracio, data_estrena) VALUES ('" +
         titol + "', '" + descripcio + "', '" + qualificacio + "', " + to_string(duracio) + ", '" + dataEstrena + "')";
     connexio.execSQL(query);
 }
 
 void PassarelaPelicula::modifica() {
-    ConnexioBD& connexio = ConnexioBD::getInstance();
+    ConnexioBD& connexio = *ConnexioBD::getInstance();
     string query = "UPDATE pelicula SET descripcio = '" + descripcio + "', qualificacio = '" + qualificacio +
         "', duracio = " + to_string(duracio) + ", data_estrena = '" + dataEstrena +
         "' WHERE titol = '" + titol + "'";
@@ -37,7 +37,7 @@ void PassarelaPelicula::modifica() {
 }
 
 void PassarelaPelicula::esborra() {
-    ConnexioBD& connexio = ConnexioBD::getInstance();
+    ConnexioBD& connexio = *ConnexioBD::getInstance();
     string query = "DELETE FROM pelicula WHERE titol = '" + titol + "'";
     connexio.execSQL(query);
 }
