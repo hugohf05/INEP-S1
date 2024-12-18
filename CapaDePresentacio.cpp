@@ -127,15 +127,34 @@ void CapaDePresentacio::modificaUsuari() {
     }
     */
 }
+//Funcion para satisfacer RIT: No mostrar contrasenya
+string llegirContrasenya() {
+    string contrasenya;
+    char ch;
+
+    cout << "Contrasenya: ";
+
+    while ((ch = _getch()) != '\r') { // '\r' indica Enter
+        if (ch == '\b' && !contrasenya.empty()) { // Manejo del retroceso
+            contrasenya.pop_back();
+            cout << "\b \b"; // Borra el carácter en pantalla
+        }
+        else if (ch != '\b') {
+            contrasenya += ch;
+            cout << '*'; // Muestra un asterisco
+        }
+    }
+    cout << endl;
+
+    return contrasenya;
+}
 
 void CapaDePresentacio::esborraUsuari() {
     string contrasenya;
 
     cout << "** Esborrar Usuari **" << endl;
     cout << "Per confirmar l'esborrat, s'ha d'entrar la contrasentya ...: " << endl;
-    cout << "Contrasenya: ";
-    cin >> contrasenya;
-    cout << endl;
+    contrasenya = llegirContrasenya();
 
     try {
         CapaDeDomini& domini = CapaDeDomini::getInstance();

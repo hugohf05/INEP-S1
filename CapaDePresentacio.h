@@ -2,6 +2,7 @@
 #define CAPADEPRESENTACIO_H
 
 #include "CapaDeDomini.h"
+#include <conio.h> // Para getch
 #include <vector>
 #include "DTOUsuari.h"
 #include "DTOPelicula.h"

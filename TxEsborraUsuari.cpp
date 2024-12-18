@@ -20,5 +20,7 @@ public:
         }
 
         usuari->esborra();
+
+        //usuari->tancarSesio();
     }
 };
