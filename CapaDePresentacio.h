@@ -2,7 +2,9 @@
 #define CAPADEPRESENTACIO_H
 
 #include "CapaDeDomini.h"
+#include <vector>
 #include "DTOUsuari.h"
+#include "DTOPelicula.h"
 class CapaDePresentacio
 {
 private:
@@ -25,6 +27,16 @@ public:
 	void consultaUsuari();
 	void modificaUsuari();
 	void esborraUsuari();
+
+	//Menu Visualitzacio Continguts
+	void visualitzarPelicula();
+	void visualitzarCapitol();
+	void consultarVisualitzacions();
+
+	//Consultes
+	void consultaProperesEstrenes();
+	void consulaUltimesNovetats();
+	void consultarPeliculesMesVistes();
 };
 
 #endif

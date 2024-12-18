@@ -112,7 +112,7 @@ void CapaDePresentacio::modificaUsuari() {
             connexio.execSQL(sql);
         }
         catch (sql::SQLException& e) {
-            std::cerr << "SQL Error: " << e.what() << std::endl;
+            cerr << "SQL Error: " << e.what() << endl;
             // si hi ha un error es tanca la connexió (si esta oberta)
         }
     }
@@ -136,6 +136,54 @@ void CapaDePresentacio::esborraUsuari() {
         cout << "Usuari esborrat correctament!" << endl;
     }
     catch (const exception& e) {
-        std::cout << "Error: " << e.what() << endl;
+        cout << "Error: " << e.what() << endl;
+    }
+}
+
+
+//Menu Visualitzacio Continguts
+void CapaDePresentacio::visualitzarPelicula() {
+    string titolPelicula;
+    cout << "Introdueix el títol de la pel·lícula: ";
+    cin.ignore();
+    getline(cin, titolPelicula);
+
+    try {
+        DTOPelicula pelicula = CapaDeDomini::getInstance().consultaPelicula(titolPelicula);
+
+        cout << "\nInformació de la pel·lícula:\n";
+        cout << "Nom pel·lícula : " << pelicula.getTitol() << "\n";
+        cout << "Descripció: " << pelicula.getDescripcio() << "\n";
+        cout << "Qualificació edat: " << pelicula.getQualificacio() << "\n";
+        cout << "Data d'estrena: " << pelicula.getDataEstrena() << "\n";
+        cout << "Duració: " << pelicula.getDuracio() << " minuts\n";
+
+        char resposta;
+        cout << "\nVols visualitzar aquesta pel·lícula? (S/N): ";
+        cin >> resposta;
+
+        if (resposta == 'S' || resposta == 's') {
+            CapaDeDomini::getInstance().registreVisualitzacio(titolPelicula);
+            cout << "La visualització ha estat registrada correctament.\n";
+            vector<DTOPelicula> relacionades = CapaDeDomini::getInstance().consultaRelacionades(titolPelicula);
+            if (!relacionades.empty()) {
+                cout << "\nPel·lícules relacionades:\n";
+                for (DTOPelicula peli : relacionades) {
+                    cout << " - " << peli.getTitol() << " (" << peli.getDataEstrena() << ")\n";
+                    cout << "   Descripció: " << peli.getDescripcio() << "\n";
+                    cout << "   Qualificació: " << peli.getQualificacio() << "\n";
+                    cout << "   Duració: " << peli.getDuracio() << " minuts\n";
+                }
+            }
+            else {
+                cout << "No hi ha pel·lícules relacionades.\n";
+            }
+        }
+        else {
+            cout << "Visualització cancel·lada.\n";
+        }
+    }
+    catch (const exception& e) {
+        cerr << "Error: " << e.what() << "\n";
     }
 }

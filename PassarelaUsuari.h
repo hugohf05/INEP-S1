@@ -2,7 +2,7 @@
 #define PASSARELA_USUARI_H
 
 #include <string>
-#include "Connexio.h" // Incluye la clase para gestionar la base de datos
+#include "Connexio.h"
 
 using namespace std;
 

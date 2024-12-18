@@ -13,11 +13,11 @@ void CapaDeDomini::registreUsuari(const string& sobrenomU, const string& nomU,
     }
 }
 
-bool CapaDeDomini::verificaCredencials(const std::string& sobrenom, const std::string& contrasenya) {
+bool CapaDeDomini::verificaCredencials(const string& sobrenom, const string& contrasenya) {
     try {
         DTOUsuari usuari = consultaUsuari(sobrenom);
         return usuari.obteContrasenya() == contrasenya;
-    } catch (const std::runtime_error& e) {
+    } catch (const runtime_error& e) {
         return false; // Si el usuario no existe, retorna false.
     }
 }
@@ -39,3 +39,31 @@ void CapaDeDomini::esborraUsuari(const string& contrasenyaU) {
     }
 }
 
+//Visualitzacio Continguts
+DTOPelicula CapaDeDomini::consultaPelicula(const string& titolPelicula) {
+    CercadoraPelicula cercador;
+    PassarelaPelicula pelicula = cercador.cercaPerTitol(titolPelicula);
+
+    // Retorna un DTO basado en la película encontrada
+    return DTOPelicula(pelicula.getTitol(), pelicula.getDescripcio(),
+        pelicula.getQualificacio(), pelicula.getDuracio(),
+        pelicula.getDataEstrena());
+}
+
+void CapaDeDomini::registreVisualitzacio(const string& titolPelicula) {
+    PassarelaVisualitzacio visualitzacio(titolPelicula);
+    visualitzacio.registra();
+}
+
+vector<DTOPelicula> CapaDeDomini::consultaRelacionades(const string& titolPelicula) {
+    CercadoraPelicula cercador;
+    vector<PassarelaPelicula> pelisRelacionades = cercador.cercaRelacionades(titolPelicula);
+
+    vector<DTOPelicula> resultats;
+    for (const PassarelaPelicula& peli : pelisRelacionades) {
+        resultats.emplace_back(peli.getTitol(), peli.getDescripcio(),
+            peli.getQualificacio(), peli.getDuracio(),
+            peli.getDataEstrena());
+    }
+    return resultats;
+}

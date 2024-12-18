@@ -1,7 +1,10 @@
 #include "DTOUsuari.h"
+#include "DTOPelicula.h"
 #include "PassarelaUsuari.h"
+#include "PassarelaVisualitzacio.h"
 #include "TxRegistreUsuari.cpp"
 #include "TxEsborraUsuari.cpp"
+#include "CercadoraPelicula.h"
 
 class CapaDeDomini
 {
@@ -24,4 +27,9 @@ public:
 	DTOUsuari consultaUsuari(string sobrenom_usuari);
 	void modificaUsuari();
 	void esborraUsuari(const string& contrasenyaU);
+
+	//Visualitzacio Continguts
+	DTOPelicula consultaPelicula(const string& titolPelicula);
+	void registreVisualitzacio(const string &titolPelicula);
+	vector<DTOPelicula> consultaRelacionades(const string& titolPelicula);
 };
