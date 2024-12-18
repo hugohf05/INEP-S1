@@ -1,12 +1,15 @@
 #include "CapaDeDomini.h"
 #include "CercadoraUsuari.h"
-void CapaDeDomini::registreUsuari(string nom, string sobrenom, string correu) {
-    PassarelaUsuari usuari(sobrenom, nom, correu);
+
+void CapaDeDomini::registreUsuari(const string& sobrenomU, const string& nomU,
+    const string& correu_electronicU, const string& contrasenyaU,
+    const string& data_naixementU, const string& subscricpioU) {
     try {
-        usuari.insereix();
+        TxRegistreUsuari txRU(sobrenomU, nomU, correu_electronicU, contrasenyaU, data_naixementU, subscricpioU);
+        txRU.executar();
     }
-    catch (sql::SQLException& e) {
-        throw;
+    catch (const sql::SQLException& e) {
+        throw runtime_error("Error en la base de dades: " + string(e.what()));
     }
 }
 
@@ -26,4 +29,13 @@ DTOUsuari CapaDeDomini::consultaUsuari(string sobrenom_usuari) {
 }
 
 void CapaDeDomini::modificaUsuari(){}
-void CapaDeDomini::esborraUsuari(){}
+void CapaDeDomini::esborraUsuari(const string& contrasenyaU) {
+    try {
+        TxEsborrarUsuari tx(contrasenyaU);
+        tx.executar();  // Ejecutar la transacción
+    }
+    catch (const exception& e) {
+        throw;  // Propagar el error a la capa de presentación
+    }
+}
+

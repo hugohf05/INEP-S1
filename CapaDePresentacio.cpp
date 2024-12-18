@@ -27,27 +27,36 @@ void CapaDePresentacio::iniciarSessio() {
 }
 
 void CapaDePresentacio::registreUsuari() {
-    string nom, sobrenom, correu;
-    cout << "Nom: " << endl;
-    cin >> nom;
-    cout << "Sobrenom: " << endl;
-    cin >> sobrenom;
-    cout << "Correu Electronic: " << endl;
-    cin >> correu;
+    string nom, sobrenom, contrasenya, correu;
+    string dataNaixement, modalitat;
 
-    CapaDeDomini& domini = CapaDeDomini::getInstance();
+    cout << "** Registrar Usuari **" << endl;
+    cout << "Nom complet: ";
+    getline(cin, nom);
+    cout << "Sobrenom: ";
+    getline(cin, sobrenom);
+    cout << "Contrasenya: ";
+    getline(cin, contrasenya);
+    cout << "Correu electrònic: ";
+    getline(cin, correu);
+    cout << "Data de naixement (YYYY-MM-DD): ";
+    getline(cin, dataNaixement);
+    cout << "Modalitats de subscripcio disponibles: " << endl;
+    cout << "   < 1. Completa" << endl;
+    cout << "   < 2. Cinefil" << endl;
+    cout << "   < 3. Infantil" << endl;
+    cout << "Escull modalitat: ";
+    int mod;
+    cin >> mod;
+    modalitat = (mod == 1) ? "Completa" : ((mod == 2) ? "Cinefil" : "Infantil");
 
-    if (nom != "" and sobrenom != "" and correu != "") {
-        try {
-            domini.registreUsuari(nom, sobrenom, correu);
-            cout << "Usuari enregistrat correctament!" << endl;
-        }
-        catch (exception& e) {
-            cout << "Error: " << e.what() << std::endl;
-        }
+    try {
+        CapaDeDomini& domini = CapaDeDomini::getInstance();
+        domini.registreUsuari(sobrenom, nom, correu, contrasenya, dataNaixement, modalitat);
+        cout << "Usuari registrat correctament!" << endl;
     }
-    else {
-        cout << "Error al registrar l'usuari." << endl;
+    catch (const exception& e) {
+        cout << "Error: " << e.what() << endl;
     }
 }
 
@@ -114,23 +123,19 @@ void CapaDePresentacio::modificaUsuari() {
 }
 
 void CapaDePresentacio::esborraUsuari() {
-    /*
-    string sobrenom;
-    cout << "Entra un sobrenom: " << endl;
-    cin >> sobrenom;
-    if (sobrenom != "") {
-        try {
-            string sql = "DELETE FROM Usuari WHERE sobrenom = '" + sobrenom + "'";
-            connexio.execSQL(sql);
-            cout << "S'ha esborrat l'usuari amb sobrenom: " + sobrenom << endl;
-        }
-        catch (sql::SQLException& e) {
-            std::cerr << "SQL Error: " << e.what() << std::endl;
-            // si hi ha un error es tanca la connexió (si esta oberta)
-        }
+    string contrasenya;
+
+    cout << "** Esborrar Usuari **" << endl;
+    cout << "Per confirmar l'esborrat, s'ha d'entrar la contrasentya ...: " << endl;
+    cout << "Contrasenya: ";
+    getline(cin, contrasenya);
+
+    try {
+        CapaDeDomini& domini = CapaDeDomini::getInstance();
+        domini.esborraUsuari(contrasenya);
+        cout << "Usuari esborrat correctament!" << endl;
     }
-    else {
-        cout << "Error al consultar l'usuari." << endl;
+    catch (const exception& e) {
+        std::cout << "Error: " << e.what() << endl;
     }
-    */
 }
