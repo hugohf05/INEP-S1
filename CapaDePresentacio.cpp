@@ -159,8 +159,8 @@ void CapaDePresentacio::esborraUsuari() {
     contrasenya = llegirContrasenya();
 
     try {
-        CapaDeDomini& domini = CapaDeDomini::getInstance();
-        domini.esborraUsuari(contrasenya);
+        TxEsborrarUsuari txeU(contrasenya);
+        txeU.executar();
         cout << "Usuari esborrat correctament!" << endl;
     }
     catch (const exception& e) {
