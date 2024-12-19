@@ -6,6 +6,12 @@
 #include <vector>
 #include "DTOUsuari.h"
 #include "DTOPelicula.h"
+#include "PetitFlix.h"
+#include "TxConsultaProperesEstrenes.h"
+#include "TxConsultaPelicula.h"
+#include "TxRegistreVisualitzacio.h"
+#include "TxConsultaRelacionades.h"
+
 class CapaDePresentacio
 {
 private:
@@ -20,24 +26,25 @@ public:
 		return instance;
 	}
 	// aquí tots els métodes que
-	void iniciarSessio();
+	//void iniciarSessio();
 	void registreUsuari();
-	void tancarSessio();
+	//void tancarSessio();
 	
 	//Menú Gestió Usuaris
 	void consultaUsuari();
 	void modificaUsuari();
+	//void modificaContrasenya();
 	void esborraUsuari();
 
 	//Menu Visualitzacio Continguts
 	void visualitzarPelicula();
-	void visualitzarCapitol();
-	void consultarVisualitzacions();
+	//void visualitzarCapitol();
+	//void consultarVisualitzacions();
 
 	//Consultes
 	void consultaProperesEstrenes();
-	void consulaUltimesNovetats();
-	void consultarPeliculesMesVistes();
+	//void consulaUltimesNovetats();
+	//void consultarPeliculesMesVistes();
 };
 
 #endif

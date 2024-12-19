@@ -5,8 +5,6 @@
 #include "Connexio.h"
 #include "PassarelaUsuari.h"
 
-using namespace std;
-
 class CercadoraUsuari {
 public:
     // Operación para buscar un usuario por sobrenom

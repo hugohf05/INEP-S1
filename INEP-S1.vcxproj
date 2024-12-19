@@ -141,8 +141,12 @@
     <ClCompile Include="PassarelaUsuari.cpp" />
     <ClCompile Include="PassarelaVisualitzacio.cpp" />
     <ClCompile Include="PetitFlix.cpp" />
+    <ClCompile Include="TxConsultaPelicula.cpp" />
+    <ClCompile Include="TxConsultaProperesEstrenes.cpp" />
+    <ClCompile Include="TxConsultaRelacionades.cpp" />
     <ClCompile Include="TxEsborraUsuari.cpp" />
     <ClCompile Include="TxRegistreUsuari.cpp" />
+    <ClCompile Include="TxRegistreVisualitzacio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CapaDeDomini.h" />
@@ -151,11 +155,20 @@
     <ClInclude Include="CercadoraPelicula.h" />
     <ClInclude Include="CercadoraUsuari.h" />
     <ClInclude Include="Connexio.h" />
+    <ClInclude Include="DTOContingut.h" />
     <ClInclude Include="DTOPelicula.h" />
+    <ClInclude Include="DTOSerie.h" />
     <ClInclude Include="DTOUsuari.h" />
     <ClInclude Include="PassarelaPelicula.h" />
     <ClInclude Include="PassarelaUsuari.h" />
     <ClInclude Include="PassarelaVisualitzacio.h" />
+    <ClInclude Include="PetitFlix.h" />
+    <ClInclude Include="TxConsultaPelicula.h" />
+    <ClInclude Include="TxConsultaProperesEstrenes.h" />
+    <ClInclude Include="TxConsultaRelacionades.h" />
+    <ClInclude Include="TxEsborraUsuari.h" />
+    <ClInclude Include="TxRegistreUsuari.h" />
+    <ClInclude Include="TxRegistreVisualitzacio.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

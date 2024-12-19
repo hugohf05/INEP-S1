@@ -1,31 +1,27 @@
-#ifndef DTO_PELICULA_H
-#define DTO_PELICULA_H
+#ifndef DTOPELICULA_H
+#define DTOPELICULA_H
 
-#include <string>
-using namespace std;
+#include "DTOContingut.h"
 
-class DTOPelicula {
-private:
-    string titol;
-    string descripcio;
-    string qualificacio;
-    int duracio;
-    string dataEstrena;
-
+class DTOPelicula : public DTOContingut {
 public:
-    DTOPelicula(const string& titolP, const string& descripcioP,
-        const string& qualificacioP, int duracioP,
-        const string& dataEstrenaP)
-        : titol(titolP), descripcio(descripcioP), qualificacio(qualificacioP),
-        duracio(duracioP), dataEstrena(dataEstrenaP) {
+    DTOPelicula()
+        : DTOContingut("", "", ""), dataEstrena(""), duracio(0) {
     }
 
-    // Getters
-    string getTitol() const { return titol; }
-    string getDescripcio() const { return descripcio; }
-    string getQualificacio() const { return qualificacio; }
-    int getDuracio() const { return duracio; }
-    string getDataEstrena() const { return dataEstrena; }
+    DTOPelicula(const std::string& titol, const std::string& descripcio, const std::string& qualificacio,
+        const std::string& dataEstrena, int duracio)
+        : DTOContingut(titol, descripcio, qualificacio), dataEstrena(dataEstrena), duracio(duracio) {
+    }
+
+    std::string obteDataEstrena() const { return dataEstrena; }
+    int obteDuracio() const { return duracio; }
+
+    std::string obteTipus() const override { return "pelicula"; }
+
+private:
+    std::string dataEstrena;
+    int duracio;
 };
 
-#endif // DTO_PELICULA_H
+#endif

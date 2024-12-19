@@ -1,7 +1,7 @@
 #include "CapaDePresentacio.h"
-using namespace std;
 
-/*void CapaDePresentacio::iniciarSessio() {
+/*
+void CapaDePresentacio::iniciarSessio() {
     string sobrenom, contrasenya;
 
     cout << "** Inici Sessio **" << endl;
@@ -57,15 +57,16 @@ void CapaDePresentacio::registreUsuari() {
     modalitat = (mod == 1) ? "Completa" : ((mod == 2) ? "Cinefil" : "Infantil");
 
     try {
-        CapaDeDomini& domini = CapaDeDomini::getInstance();
-        domini.registreUsuari(sobrenom, nom, correu, contrasenya, dataNaixement, modalitat);
+        TxRegistraUsuari txRegistra(nom, sobrenom, contrasenya, correu, dataNaixement, modalitat);
+        txRegistra.executar();
         cout << "Usuari registrat correctament!" << endl;
     }
     catch (const exception& e) {
-        cout << "Error: " << e.what() << endl;
+        cerr << "Error: " << e.what() << endl;
     }
 }
 
+/*
 void CapaDePresentacio::tancarSessio() {
     char opcio;
     cout << "** Tancar sessio **" << endl;
@@ -83,7 +84,7 @@ void CapaDePresentacio::tancarSessio() {
         cout << "Opció no vàlida. La sessio no s'ha tancat." << endl;
     }
 }
-
+*/
 void CapaDePresentacio::consultaUsuari(){
     string sobrenom_usuari;
     cout << "Entra un sobrenom: ";
@@ -103,7 +104,7 @@ void CapaDePresentacio::consultaUsuari(){
 }
 
 void CapaDePresentacio::modificaUsuari() {
-    /*string sobrenom, nom, correu;
+    string sobrenom, nom, correu;
     cout << "Entra un sobrenom: " << endl;
     cin >> sobrenom;
     if (sobrenom != "") {
@@ -115,7 +116,7 @@ void CapaDePresentacio::modificaUsuari() {
 
         try {
             string sql = "UPDATE Usuari SET nom = '" + nom + "', correu_electronic = '" + correu + "' WHERE sobrenom = '" + sobrenom + "'";
-            connexio.execSQL(sql);
+            //connexio.execSQL(sql);
         }
         catch (sql::SQLException& e) {
             cerr << "SQL Error: " << e.what() << endl;
@@ -125,8 +126,9 @@ void CapaDePresentacio::modificaUsuari() {
     else {
         cout << "Error al consultar l'usuari." << endl;
     }
-    */
+ 
 }
+
 //Funcion para satisfacer RIT: No mostrar contrasenya
 string llegirContrasenya() {
     string contrasenya;
@@ -166,50 +168,123 @@ void CapaDePresentacio::esborraUsuari() {
     }
 }
 
-
 //Menu Visualitzacio Continguts
+
+//NO TOCAR, PERFECTO
 void CapaDePresentacio::visualitzarPelicula() {
     string titolPelicula;
-    cout << "Introdueix el títol de la pel·lícula: ";
+
+    cout << "** Visualitzar pelicula **" << endl;
+    cout << "Introdueix el titol de la pelicula: ";
     cin.ignore();
     getline(cin, titolPelicula);
 
     try {
-        DTOPelicula pelicula = CapaDeDomini::getInstance().consultaPelicula(titolPelicula);
+        // Transacció per obtenir la informació de la pel·lícula
+        TxConsultaPelicula txConsulta(titolPelicula);
+        txConsulta.executar();
+        DTOPelicula pelicula = txConsulta.obteResultat();
 
-        cout << "\nInformació de la pel·lícula:\n";
-        cout << "Nom pel·lícula : " << pelicula.getTitol() << "\n";
-        cout << "Descripció: " << pelicula.getDescripcio() << "\n";
-        cout << "Qualificació edat: " << pelicula.getQualificacio() << "\n";
-        cout << "Data d'estrena: " << pelicula.getDataEstrena() << "\n";
-        cout << "Duració: " << pelicula.getDuracio() << " minuts\n";
+        // Comprovar si la pel·lícula existeix
+        if (pelicula.obteTitol().empty()) {
+            cout << "La pelicula no existeix o no esta disponible." << endl;
+            return;
+        }
+
+        // Mostrar informació de la pel·lícula
+        cout << "\nInformacio de la pelicula:\n";
+        cout << "Nom pelicula: " << pelicula.obteTitol() << "\n";
+        cout << "Descripcio: " << pelicula.obteDescripcio() << "\n";
+        cout << "Qualificacio edat: " << pelicula.obteQualificacio() << "\n";
+        cout << "Data d'estrena: " << pelicula.obteDataEstrena() << "\n";
+        cout << "Duracio: " << pelicula.obteDuracio() << " minuts\n";
 
         char resposta;
-        cout << "\nVols visualitzar aquesta pel·lícula? (S/N): ";
+        cout << "\nVols visualitzar aquesta pelicula? (S/N): ";
         cin >> resposta;
 
-        if (resposta == 'S' || resposta == 's') {
-            CapaDeDomini::getInstance().registreVisualitzacio(titolPelicula);
-            cout << "La visualització ha estat registrada correctament.\n";
-            vector<DTOPelicula> relacionades = CapaDeDomini::getInstance().consultaRelacionades(titolPelicula);
+        if (tolower(resposta) == 's') {
+            // Transacció per registrar la visualització
+            TxRegistreVisualitzacio txRegistre(titolPelicula);
+            txRegistre.executar();
+            cout << "La visualitzacio ha estat registrada correctament.\n";
+
+            // Transacció per obtenir pel·lícules relacionades
+            TxConsultaRelacionades txRelacionades(titolPelicula);
+            txRelacionades.executar();
+            auto relacionades = txRelacionades.obteResultat();
+
             if (!relacionades.empty()) {
-                cout << "\nPel·lícules relacionades:\n";
-                for (DTOPelicula peli : relacionades) {
-                    cout << " - " << peli.getTitol() << " (" << peli.getDataEstrena() << ")\n";
-                    cout << "   Descripció: " << peli.getDescripcio() << "\n";
-                    cout << "   Qualificació: " << peli.getQualificacio() << "\n";
-                    cout << "   Duració: " << peli.getDuracio() << " minuts\n";
+                cout << "\nPelicules relacionades:\n";
+                for (const auto& relacionada : relacionades) {
+                    cout << " - " << relacionada.obteTitol() << " (" << relacionada.obteDataEstrena() << ")\n";
+                    cout << "   Descripcio: " << relacionada.obteDescripcio() << "\n";
+                    cout << "   Qualificacio: " << relacionada.obteQualificacio() << "\n";
+                    cout << "   Duracio: " << relacionada.obteDuracio() << " minuts\n";
                 }
             }
             else {
-                cout << "No hi ha pel·lícules relacionades.\n";
+                cout << "No hi ha pelicules relacionades.\n";
             }
         }
         else {
-            cout << "Visualització cancel·lada.\n";
+            cout << "Visualitzacio cancel·lada.\n";
         }
     }
     catch (const exception& e) {
         cerr << "Error: " << e.what() << "\n";
+    }
+}
+
+
+//NO TOCAR, PERFECTO
+void CapaDePresentacio::consultaProperesEstrenes() {
+    string modalitat;
+    PetitFlix& sistema = PetitFlix::getInstance();
+
+    // Determina la modalitat en función de si hay usuario loggeado
+    if (!sistema.estaUsuariLoggejat()) {
+        cout << "** Consulta Properes Estrenes **" << endl;
+        cout << "Introdueix la modalitat de subscripció: ";
+        cin >> modalitat;
+    }
+    else {
+        modalitat = sistema.obteModalitatUsuariLoggejat();
+    }
+
+    try {
+        TxConsultaProperesEstrenes txConsulta(modalitat);
+        txConsulta.executar();
+        const auto& estrenes = txConsulta.obteResultat();
+
+        if (estrenes.empty()) {
+            cout << "No hi ha continguts per estrenar proximament." << endl;
+        }
+        else {
+            cout << "Properes estrenes:" << endl;
+
+            int i = 1;
+            for (const auto& estrena : estrenes) {
+                cout << i << ".- ";
+                if (estrena->obteTipus() == "pelicula") {
+                    auto pelicula = dynamic_cast<DTOPelicula*>(estrena.get());
+                    cout << pelicula->obteDataEstrena() << " [Pelicula]: "
+                        << pelicula->obteTitol() << "; "
+                        << pelicula->obteQualificacio() << "; "
+                        << pelicula->obteDuracio() << " min." << endl;
+                }
+                else if (estrena->obteTipus() == "serie") {
+                    auto serie = dynamic_cast<DTOSerie*>(estrena.get());
+                    cout << serie->obteDataEstrena() << " [Serie]: "
+                        << serie->obteTitol() << "; "
+                        << serie->obteQualificacio() << "; "
+                        << serie->obteTotalCapitols() << " capitols." << endl;
+                }
+                ++i;
+            }
+        }
+    }
+    catch (const exception& e) {
+        cout << "Error: " << e.what() << endl;
     }
 }

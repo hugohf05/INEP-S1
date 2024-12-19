@@ -7,8 +7,8 @@
 
 class CercadoraPelicula {
 public:
-    PassarelaPelicula cercaPerTitol(const string& titolPelicula);
-    vector<PassarelaPelicula> cercaRelacionades(const string& titolPelicula);
+    DTOPelicula cercaPerTitol(const string& titolPelicula);
+    vector<DTOPelicula> cercaRelacionades(const string& titolPelicula);
 };
 
 #endif // CERCADORA_PELICULA_H

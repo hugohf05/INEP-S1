@@ -1,27 +1,21 @@
-#include "PassarelaUsuari.h"
+#include "PetitFlix.h"
 
-class PetitFlix {
-private:
-    static PetitFlix* instancia;  // Instancia única (Singleton)
-    PassarelaUsuari* usuariLoggejat;  // Usuario loggeado actualmente
+PetitFlix& PetitFlix::getInstance() {
+    static PetitFlix instance;
+    return instance;
+}
 
-    // Constructor privado
-    PetitFlix() : usuariLoggejat(nullptr) {}
-
-public:
-    static PetitFlix& getInstance() {
-        static PetitFlix instance;
-        return instance;
+PassarelaUsuari* PetitFlix::obtenirUsuariLoggejat() const {
+    if (!usuariLoggejat) {
+        throw runtime_error("Error: No hi ha cap usuari loggejat.");
     }
+    return usuariLoggejat;
+}
 
-    PassarelaUsuari* obtenirUsuariLoggejat() const {
-        if (!usuariLoggejat) {
-            throw runtime_error("Error: No hi ha cap usuari loggejat.");
-        }
-        return usuariLoggejat;
-    }
+bool PetitFlix::estaUsuariLoggejat() const {
+    return usuariLoggejat != nullptr;
+}
 
-    bool estaUsuariLoggejat() const {
-        return usuariLoggejat != nullptr;
-    }
-};
+string PetitFlix::obteModalitatUsuariLoggejat() const {
+    return usuariLoggejat->getSubscricpio();
+}

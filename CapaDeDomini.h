@@ -1,10 +1,12 @@
+#ifndef CAPADEDOMINI_H
+#define CAPADEDOMINI_H
+
 #include "DTOUsuari.h"
-#include "DTOPelicula.h"
-#include "PassarelaUsuari.h"
 #include "PassarelaVisualitzacio.h"
-#include "TxRegistreUsuari.cpp"
-#include "TxEsborraUsuari.cpp"
+#include "TxRegistreUsuari.h"
+#include "TxEsborraUsuari.h"
 #include "CercadoraPelicula.h"
+#include "CercadoraContingut.h"
 
 class CapaDeDomini
 {
@@ -14,12 +16,12 @@ private:
 	//Constructor Privat
 	CapaDeDomini() {}
 public:
-	//Metode per obtenir la Ãºnica instÃ ncia
+	//Metode per obtenir la única instància
 	static CapaDeDomini& getInstance() {
 		static CapaDeDomini instance;
 		return instance;
 	}
-	// aquÃ­ tots els mÃ©todes que
+	// aquí tots els métodes que
 	void registreUsuari(const string& sobrenomU, const string& nomU,
 		const string& correu_electronicU, const string& contrasenyaU,
 		const string& data_naixementU, const string& subscricpioU);
@@ -30,6 +32,9 @@ public:
 
 	//Visualitzacio Continguts
 	DTOPelicula consultaPelicula(const string& titolPelicula);
-	void registreVisualitzacio(const string &titolPelicula);
+	void registreVisualitzacio(const string& titolPelicula);
 	vector<DTOPelicula> consultaRelacionades(const string& titolPelicula);
+	vector<unique_ptr<DTOContingut>> consultaProperesEstrenes(const string& modalitat);
 };
+
+#endif
