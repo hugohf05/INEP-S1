@@ -8,7 +8,9 @@ void PassarelaVisualitzacio::registra() {
     ConnexioBD& connexio = *ConnexioBD::getInstance();
 
     try {
-        string sobrenomUsuari = "done";
+        PetitFlix& sistema = PetitFlix::getInstance();
+        PassarelaUsuari* u = sistema.obtenirUsuariLoggejat();
+        string sobrenomUsuari = u->getSobrenom();
         // Comprovar si ja existeix una visualització per a aquest usuari i pel·lícula
         std::string queryCheck =
             "SELECT num_visualitzacions FROM visualitzacio_pelicula "

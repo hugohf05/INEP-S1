@@ -1,9 +1,9 @@
 #include "CercadoraUsuari.h"
 #include "PassarelaUsuari.h"
 
-PassarelaUsuari* CercadoraUsuari::cercaPerSobrenom(const string& sobrenomU) {
+PassarelaUsuari* CercadoraUsuari::cerca(const string& sobrenomU) {
     ConnexioBD& con = *ConnexioBD::getInstance();
-    PassarelaUsuari* info = new PassarelaUsuari();  // Cambiar a puntero dinámico
+    PassarelaUsuari* info = new PassarelaUsuari();
     string sql = "SELECT * FROM Usuari WHERE sobrenom = '" + sobrenomU + "'";
 
     sql::ResultSet* res = con.consultaSQL(sql);

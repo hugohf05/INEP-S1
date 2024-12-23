@@ -1,4 +1,5 @@
 #include "Connexio.h"
+#include "PetitFlix.h"
 
 class PassarelaVisualitzacio {
 private:

@@ -8,7 +8,7 @@
 class CercadoraUsuari {
 public:
     // Operación para buscar un usuario por sobrenom
-    PassarelaUsuari* cercaPerSobrenom(const string& sobrenomU);
+    PassarelaUsuari* cerca(const string& sobrenomU);
 };
 
 #endif // CERCADORA_USUARI_H

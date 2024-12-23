@@ -127,7 +127,6 @@ int main() {
         cout << "   Menu Principal   " << endl;
         cout << "********************" << endl;
 
-        //Cambiar cuando se haga iniciar sessio y funcione con el usuari loggegat, quitar o poner el ! para intercambiar entre menus.
         if (!sistema.estaUsuariLoggejat()) {
             cout << "1. Iniciar sessio" << endl;
             cout << "2. Registrar Usuari" << endl;
@@ -145,7 +144,6 @@ int main() {
         cout << "Escull una opcio: ";
         cin >> opt;
 
-        //aqui lo mismo
         if (!sistema.estaUsuariLoggejat()) {
             switch (opt) {
             case 1:
