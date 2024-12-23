@@ -130,7 +130,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CapaDeDomini.cpp" />
     <ClCompile Include="CapaDePresentacio.cpp" />
     <ClCompile Include="CercadoraContingut.cpp" />
     <ClCompile Include="CercadoraPelicula.cpp" />
@@ -145,11 +144,12 @@
     <ClCompile Include="TxConsultaProperesEstrenes.cpp" />
     <ClCompile Include="TxConsultaRelacionades.cpp" />
     <ClCompile Include="TxEsborraUsuari.cpp" />
+    <ClCompile Include="TxIniciSessio.cpp" />
     <ClCompile Include="TxRegistreUsuari.cpp" />
     <ClCompile Include="TxRegistreVisualitzacio.cpp" />
+    <ClCompile Include="TxTancaSessio.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CapaDeDomini.h" />
     <ClInclude Include="CapaDePresentacio.h" />
     <ClInclude Include="CercadoraContingut.h" />
     <ClInclude Include="CercadoraPelicula.h" />
@@ -167,8 +167,10 @@
     <ClInclude Include="TxConsultaProperesEstrenes.h" />
     <ClInclude Include="TxConsultaRelacionades.h" />
     <ClInclude Include="TxEsborraUsuari.h" />
+    <ClInclude Include="TxIniciSessio.h" />
     <ClInclude Include="TxRegistreUsuari.h" />
     <ClInclude Include="TxRegistreVisualitzacio.h" />
+    <ClInclude Include="TxTancaSessio.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

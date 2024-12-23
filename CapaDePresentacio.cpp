@@ -1,6 +1,6 @@
 #include "CapaDePresentacio.h"
 
-/*
+
 void CapaDePresentacio::iniciarSessio() {
     string sobrenom, contrasenya;
 
@@ -10,22 +10,15 @@ void CapaDePresentacio::iniciarSessio() {
     cout << "Contrasenya:" << endl;
     cin >> contrasenya;
 
-    CapaDeDomini& domini = CapaDeDomini::getInstance();
-
     try {
-        if (domini.verificaDadesInici(sobrenom, contrasenya)) {
-            //Falta hacer el metodo en la capa de domini
-            cout << "Sessio iniciada correctament." << endl;
-        }
-        else {
-            throw runtime_error("Credencials incorrectes.");
-        }
+        TxIniciSessio txI(sobrenom, contrasenya);
+        txI.executar();
+        cout << "Sessio iniciada correctament!" << endl;
     }
     catch (const exception& e) {
         cout << "Error: No s'han pogut verificar les credencials." << endl;
     }
 }
-*/
 
 void CapaDePresentacio::registreUsuari() {
     string nom, sobrenom, contrasenya, correu;
@@ -66,7 +59,7 @@ void CapaDePresentacio::registreUsuari() {
     }
 }
 
-/*
+
 void CapaDePresentacio::tancarSessio() {
     char opcio;
     cout << "** Tancar sessio **" << endl;
@@ -74,8 +67,9 @@ void CapaDePresentacio::tancarSessio() {
     cin >> opcio;
 
     if (opcio == 'S' || opcio == 's') {
+        TxTancaSessio txC;
+        txC.executar();
         cout << "Sessio tancada correctament!" << endl;
-        //Falta manejar el cierre de sesion
     }
     else if (opcio == 'N' || opcio == 'n') {
         cout << "La sessio no s'ha tancat." << endl;
@@ -84,7 +78,7 @@ void CapaDePresentacio::tancarSessio() {
         cout << "Opció no vàlida. La sessio no s'ha tancat." << endl;
     }
 }
-*/
+/*
 void CapaDePresentacio::consultaUsuari(){
     string sobrenom_usuari;
     cout << "Entra un sobrenom: ";
@@ -102,7 +96,7 @@ void CapaDePresentacio::consultaUsuari(){
         cout << "Error: " << e.what() << endl;
     }
 }
-
+*/
 void CapaDePresentacio::modificaUsuari() {
     string sobrenom, nom, correu;
     cout << "Entra un sobrenom: " << endl;
@@ -212,11 +206,11 @@ void CapaDePresentacio::visualitzarPelicula() {
             // Transacció per obtenir pel·lícules relacionades
             TxConsultaRelacionades txRelacionades(titolPelicula);
             txRelacionades.executar();
-            auto relacionades = txRelacionades.obteResultat();
+            vector<DTOPelicula> relacionades = txRelacionades.obteResultat();
 
             if (!relacionades.empty()) {
                 cout << "\nPelicules relacionades:\n";
-                for (const auto& relacionada : relacionades) {
+                for (DTOPelicula relacionada : relacionades) {
                     cout << " - " << relacionada.obteTitol() << " (" << relacionada.obteDataEstrena() << ")\n";
                     cout << "   Descripcio: " << relacionada.obteDescripcio() << "\n";
                     cout << "   Qualificacio: " << relacionada.obteQualificacio() << "\n";
@@ -264,17 +258,17 @@ void CapaDePresentacio::consultaProperesEstrenes() {
             cout << "Properes estrenes:" << endl;
 
             int i = 1;
-            for (const auto& estrena : estrenes) {
+            for (const unique_ptr<DTOContingut>& estrena : estrenes) {
                 cout << i << ".- ";
                 if (estrena->obteTipus() == "pelicula") {
-                    auto pelicula = dynamic_cast<DTOPelicula*>(estrena.get());
-                    cout << pelicula->obteDataEstrena() << " [Pelicula]: "
-                        << pelicula->obteTitol() << "; "
-                        << pelicula->obteQualificacio() << "; "
-                        << pelicula->obteDuracio() << " min." << endl;
+                    DTOPelicula* pelicula = dynamic_cast<DTOPelicula*>(estrena.get());
+                    cout << pelicula->dataEstrena << " [Pelicula]: "
+                        << pelicula->titol << "; "
+                        << pelicula->qualificacio << "; "
+                        << pelicula->duracio << " min." << endl;
                 }
                 else if (estrena->obteTipus() == "serie") {
-                    auto serie = dynamic_cast<DTOSerie*>(estrena.get());
+                    DTOSerie* serie = dynamic_cast<DTOSerie*>(estrena.get());
                     cout << serie->obteDataEstrena() << " [Serie]: "
                         << serie->obteTitol() << "; "
                         << serie->obteQualificacio() << "; "

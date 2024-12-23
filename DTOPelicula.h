@@ -4,6 +4,8 @@
 #include "DTOContingut.h"
 
 class DTOPelicula : public DTOContingut {
+    friend class CapaDePresentacio; // Ahora CapaDePresentacio puede acceder a los atributos privados de DTOPelicula directamente.
+
 public:
     DTOPelicula()
         : DTOContingut("", "", ""), dataEstrena(""), duracio(0) {

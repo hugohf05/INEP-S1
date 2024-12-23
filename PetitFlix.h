@@ -20,6 +20,9 @@ public:
     bool estaUsuariLoggejat() const;
 
     string obteModalitatUsuariLoggejat() const;
+
+    void iniciaSessio(PassarelaUsuari* usuari);
+    void tancaSessio();
 };
 
 #endif // PETITFLIX_H

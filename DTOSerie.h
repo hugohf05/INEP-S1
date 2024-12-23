@@ -4,6 +4,8 @@
 #include "DTOContingut.h"
 
 class DTOSerie : public DTOContingut {
+    friend class CapaDePresentacio; // Ahora CapaDePresentacio puede acceder a los atributos privados de DTOPelicula directamente.
+
 public:
     DTOSerie(const string& titol, const string& descripcio, const string& qualificacio,
         const string& dataEstrena, int totalCapitols)

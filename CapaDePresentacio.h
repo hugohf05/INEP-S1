@@ -1,14 +1,18 @@
 #ifndef CAPADEPRESENTACIO_H
 #define CAPADEPRESENTACIO_H
 
-#include "CapaDeDomini.h"
 #include <conio.h> // Para getch
 #include <vector>
 #include "DTOUsuari.h"
 #include "DTOPelicula.h"
+#include "DTOSerie.h"
 #include "PetitFlix.h"
 #include "TxConsultaProperesEstrenes.h"
 #include "TxConsultaPelicula.h"
+#include "TxRegistreUsuari.h"
+#include "TxEsborraUsuari.h"
+#include "TxTancaSessio.h"
+#include "TxIniciSessio.h"
 #include "TxRegistreVisualitzacio.h"
 #include "TxConsultaRelacionades.h"
 
@@ -26,12 +30,12 @@ public:
 		return instance;
 	}
 	// aquí tots els métodes que
-	//void iniciarSessio();
+	void iniciarSessio();
 	void registreUsuari();
-	//void tancarSessio();
+	void tancarSessio();
 	
 	//Menú Gestió Usuaris
-	void consultaUsuari();
+	//void consultaUsuari();
 	void modificaUsuari();
 	//void modificaContrasenya();
 	void esborraUsuari();

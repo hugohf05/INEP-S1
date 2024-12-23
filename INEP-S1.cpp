@@ -3,7 +3,7 @@
 #include <iostream>
 
 void iniciarSessio(CapaDePresentacio& presentacio) {
-    //presentacio.iniciarSessio();
+    presentacio.iniciarSessio();
 }
 
 void registreUsuari(CapaDePresentacio& presentacio) {
@@ -26,7 +26,7 @@ void GestioUsuari(CapaDePresentacio& presentacio) {
 
         switch (op) {
         case 1:
-            presentacio.consultaUsuari();
+            //presentacio.consultaUsuari();
             break;
         case 2:
             presentacio.modificaUsuari();
@@ -114,7 +114,7 @@ void Consultes(CapaDePresentacio& presentacio) {
 }
 
 void tancarSessio(CapaDePresentacio& presentacio) {
-    //presentacio.tancarSessio();
+    presentacio.tancarSessio();
 }
 
 int main() {

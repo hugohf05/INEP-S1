@@ -8,12 +8,12 @@ TxConsultaProperesEstrenes::TxConsultaProperesEstrenes(const std::string& modali
 void TxConsultaProperesEstrenes::executar() {
     try {
         vector<DTOPelicula> pelicules = CercadoraContingut::getInstance().cercaProperesPelicules(modalitat);
-        for (auto& pelicula : pelicules) {
+        for (DTOPelicula& pelicula : pelicules) {
             estrenes.push_back(std::make_unique<DTOPelicula>(std::move(pelicula)));
         }
 
         vector<DTOSerie> series = CercadoraContingut::getInstance().cercaProperesSeries(modalitat);
-        for (auto& serie : series) {
+        for (DTOSerie& serie : series) {
             estrenes.push_back(std::make_unique<DTOSerie>(std::move(serie)));
         }
     }
