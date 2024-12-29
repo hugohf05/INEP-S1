@@ -262,10 +262,10 @@ void CapaDePresentacio::consultaProperesEstrenes() {
                 cout << i << ".- ";
                 if (estrena->obteTipus() == "pelicula") {
                     DTOPelicula* pelicula = dynamic_cast<DTOPelicula*>(estrena.get());
-                    cout << pelicula->dataEstrena << " [Pelicula]: "
-                        << pelicula->titol << "; "
-                        << pelicula->qualificacio << "; "
-                        << pelicula->duracio << " min." << endl;
+                    cout << pelicula->obteDataEstrena() << " [Pelicula]: "
+                        << pelicula->obteTitol() << "; "
+                        << pelicula->obteQualificacio() << "; "
+                        << pelicula->obteDuracio() << " min." << endl;
                 }
                 else if (estrena->obteTipus() == "serie") {
                     DTOSerie* serie = dynamic_cast<DTOSerie*>(estrena.get());
