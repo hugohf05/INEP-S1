@@ -18,21 +18,23 @@ Este proyecto conecta una aplicación C++ con una base de datos MySQL utilizando
 
 3. Para instalar la biblioteca nlohmann/json en Windows, aquí te guiaré paso a paso usando vcpkg, que es una herramienta muy popular para gestionar dependencias en proyectos C++ en Windows.
 
-Paso 1: Instalar vcpkg en Windows
+1.  Instalar vcpkg en Windows
 Clonar el repositorio de vcpkg:
 
 Abre una terminal (como PowerShell o Símbolo del sistema) y clona el repositorio de vcpkg:
+
 git clone https://github.com/microsoft/vcpkg.git
 
-Compilar vcpkg:
+3. Compilar vcpkg:
 cd vcpkg
 
 Ahora, ejecuta el script de construcción para compilar vcpkg:
+
 .\bootstrap-vcpkg.bat
 
 Este comando descargará las dependencias necesarias y compilará vcpkg.
 
-Integrar vcpkg con Visual Studio (opcional pero recomendado):
+4. Integrar vcpkg con Visual Studio (opcional pero recomendado):
 
 Si estás usando Visual Studio, es útil integrar vcpkg para que el IDE lo reconozca automáticamente y configure las rutas de inclusión.
 
@@ -42,7 +44,7 @@ Ejecuta:
 
 Esto hará que las bibliotecas gestionadas por vcpkg se encuentren automáticamente en tu proyecto de Visual Studio.
 
-Paso 2: Instalar nlohmann/json usando vcpkg
+5. Instalar nlohmann/json usando vcpkg
 
 Una vez que tienes vcpkg instalado, puedes usarlo para instalar la biblioteca nlohmann/json.
 
@@ -54,8 +56,10 @@ Ejecuta el siguiente comando en la misma terminal donde tienes vcpkg:
 
 Esto descargará, compilará y configurará la biblioteca nlohmann/json para tu sistema.
 
-Verificar la instalación:
+6. Verificar la instalación:
 
 Después de instalar la biblioteca, puedes verificar que se haya instalado correctamente mediante el siguiente comando:
+
 .\vcpkg list
+
 Este comando mostrará una lista de las bibliotecas instaladas. Deberías ver nlohmann-json en la lista.
