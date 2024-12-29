@@ -1,4 +1,4 @@
-# Proyecto de Conexión a Base de Datos
+# Proyecto INEP
 
 Este proyecto conecta una aplicación C++ con una base de datos MySQL utilizando la clase `ConnexioBD`. Los datos sensibles, como la dirección del servidor, el usuario y la contraseña, son leídos desde un archivo de configuración para mejorar la seguridad.
 
