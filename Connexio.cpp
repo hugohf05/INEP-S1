@@ -1,11 +1,27 @@
 #include "Connexio.h"
+#include <fstream>
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 ConnexioBD* ConnexioBD::instance = nullptr;
 
 ConnexioBD::ConnexioBD() {
+    // Leer el archivo de configuración JSON
+    std::ifstream configFile("config.json");  // Archivo de configuración
+    json config;
+    configFile >> config;
+
+    std::string host = config["host"];
+    int port = config["port"];
+    std::string user = config["user"];
+    std::string password = config["password"];
+    std::string database = config["database"];
+
+    // Establecer la conexión a la base de datos usando los valores del archivo JSON
     driver = sql::mysql::get_mysql_driver_instance();
-    con = driver->connect("ubiwan.epsevg.upc.edu:3306", "inep18", "aFoo1ahNgohGei");  // Establir connexi�
-    con->setSchema("inep18");  // Seleccionar la base de dades
+    con = driver->connect(host + ":" + std::to_string(port), user, password);
+    con->setSchema(database);  // Seleccionar la base de datos
 }
 
 ConnexioBD* ConnexioBD::getInstance() {
@@ -21,14 +37,13 @@ ConnexioBD::~ConnexioBD() {
     if (con) con->close();
 }
 
-sql::ResultSet* ConnexioBD::consultaSQL(const string& consulta) {
+sql::ResultSet* ConnexioBD::consultaSQL(const std::string& consulta) {
     sql::Statement* stmt = con->createStatement();
     return stmt->executeQuery(consulta);  // Executar la consulta SELECT
 }
 
 // Operaci� d'execuci� (INSERT, UPDATE, DELETE)
-// Operaci� d'execuci� (INSERT, UPDATE, DELETE)
-void ConnexioBD::execSQL(const string& comanda) {
+void ConnexioBD::execSQL(const std::string& comanda) {
     sql::Statement* stmt = con->createStatement();
     stmt->execute(comanda);  // Executar la comanda (INSERT, UPDATE, DELETE)
 }

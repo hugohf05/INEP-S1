@@ -150,7 +150,6 @@
     <ClCompile Include="TxConsultaTemporades.cpp" />
     <ClCompile Include="TxConsultaUltimesNovetats.cpp" />
     <ClCompile Include="TxConsultaVisualitzacioCapitol.cpp" />
-    <ClCompile Include="TxEdatApropiada.cpp" />
     <ClCompile Include="TxEsborraUsuari.cpp" />
     <ClCompile Include="TxIniciSessio.cpp" />
     <ClCompile Include="TxRegistreUsuari.cpp" />

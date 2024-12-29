@@ -1,0 +1,7 @@
+{
+    "host": "ubiwan.epsevg.upc.edu",
+    "port": 3306,
+    "user": "inep18",
+    "password": "aFoo1ahNgohGei",
+    "database": "inep18"
+}

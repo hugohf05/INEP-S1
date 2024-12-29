@@ -78,9 +78,6 @@
     <ClCompile Include="TxConsultaVisualitzacioCapitol.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="TxEdatApropiada.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="TxRegistreVisualitzacioCapitol.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
