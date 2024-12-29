@@ -155,6 +155,8 @@ void CapaDePresentacio::esborraUsuari() {
         TxEsborrarUsuari txeU(contrasenya);
         txeU.executar();
         cout << "Usuari esborrat correctament!" << endl;
+        TxTancaSessio txC;
+        txC.executar();
     }
     catch (const exception& e) {
         cout << "Error: " << e.what() << endl;
@@ -181,6 +183,14 @@ void CapaDePresentacio::visualitzarPelicula() {
         // Comprovar si la pel·lícula existeix
         if (pelicula.obteTitol().empty()) {
             cout << "La pelicula no existeix o no esta disponible." << endl;
+            return;
+        }
+        time_t t = time(nullptr);
+        tm* now = localtime(&t);
+        char fechaActual[11]; // YYYY-MM-DD
+        strftime(fechaActual, sizeof(fechaActual), "%Y-%m-%d", now);
+        if (pelicula.obteDataEstrena() > fechaActual) {
+            cout << "La pel·lícula no ha sigut estrenada." << endl;
             return;
         }
 

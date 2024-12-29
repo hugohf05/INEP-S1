@@ -11,6 +11,7 @@ void registreUsuari(CapaDePresentacio& presentacio) {
 }
 
 void GestioUsuari(CapaDePresentacio& presentacio) {
+    PetitFlix& sistema = PetitFlix::getInstance();
     int op;
     do {
         cout << "--------------------" << endl;
@@ -44,7 +45,7 @@ void GestioUsuari(CapaDePresentacio& presentacio) {
             cout << "Opció no vàlida." << endl;
             break;
         }
-    } while (op != 5);
+    } while (op != 5 && sistema.estaUsuariLoggejat());
 }
 
 void Visualitzar(CapaDePresentacio& presentacio) {
@@ -65,7 +66,7 @@ void Visualitzar(CapaDePresentacio& presentacio) {
             presentacio.visualitzarPelicula();
             break;
         case 2:
-            //presentacio.visualitzarCapitol();
+            presentacio.visualitzarCapitol();
             break;
         case 3:
             //presentacio.consultarVisualitzacions();
@@ -98,7 +99,7 @@ void Consultes(CapaDePresentacio& presentacio) {
             presentacio.consultaProperesEstrenes();
             break;
         case 2:
-            //presentacio.consulaUltimesNovetats();
+            presentacio.consultaUltimesNovetats();
             break;
         case 3:
             //presentacio.consultarPeliculesMesVistes();

@@ -139,14 +139,23 @@
     <ClCompile Include="PassarelaPelicula.cpp" />
     <ClCompile Include="PassarelaUsuari.cpp" />
     <ClCompile Include="PassarelaVisualitzacio.cpp" />
+    <ClCompile Include="PassarelaVisualitzacioCapitol.cpp" />
     <ClCompile Include="PetitFlix.cpp" />
+    <ClCompile Include="TxConsultaCapitols.cpp" />
+    <ClCompile Include="TxConsultaNovetatsSerie.cpp" />
     <ClCompile Include="TxConsultaPelicula.cpp" />
     <ClCompile Include="TxConsultaProperesEstrenes.cpp" />
     <ClCompile Include="TxConsultaRelacionades.cpp" />
+    <ClCompile Include="TxConsultaSerie.cpp" />
+    <ClCompile Include="TxConsultaTemporades.cpp" />
+    <ClCompile Include="TxConsultaUltimesNovetats.cpp" />
+    <ClCompile Include="TxConsultaVisualitzacioCapitol.cpp" />
+    <ClCompile Include="TxEdatApropiada.cpp" />
     <ClCompile Include="TxEsborraUsuari.cpp" />
     <ClCompile Include="TxIniciSessio.cpp" />
     <ClCompile Include="TxRegistreUsuari.cpp" />
     <ClCompile Include="TxRegistreVisualitzacio.cpp" />
+    <ClCompile Include="TxRegistreVisualitzacioCapitol.cpp" />
     <ClCompile Include="TxTancaSessio.cpp" />
   </ItemGroup>
   <ItemGroup>

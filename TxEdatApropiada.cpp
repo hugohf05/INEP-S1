@@ -13,8 +13,8 @@ void TxEdatApropiada::executar() {
 
     // Buscar el usuario por su sobrenombre
     CercadoraUsuari Cercadora;
-    PassarelaUsuari usuari = Cercadora.cercaPerSobrenom(sobrenomUsuari);
-    std::string dataNaixement = usuari.getDataNaixement(); // Fecha de nacimiento del usuario
+    PassarelaUsuari* usuari = Cercadora.cerca(sobrenomUsuari);
+    std::string dataNaixement = usuari->getDataNaixement(); // Fecha de nacimiento del usuario
 
     // Verificar que la fecha de nacimiento no esté vacía
     std::cout << "Fecha de nacimiento obtenida: '" << dataNaixement << "'" << std::endl;

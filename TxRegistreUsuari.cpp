@@ -26,14 +26,18 @@ void TxRegistraUsuari::executar() {
         connexio.execSQL(query);
     }
     catch (const sql::SQLException& e) {
-        if (std::string(e.what()).find("Duplicate entry") != std::string::npos) {
-            if (std::string(e.what()).find("correu_electronic") != std::string::npos) {
-                throw std::runtime_error("Ja existeix un usuari amb aquest correu electr�nic.");
-            }
-            else if (std::string(e.what()).find("sobrenom") != std::string::npos) {
-                throw std::runtime_error("Ja existeix un usuari amb aquest sobrenom.");
+        std::string errorMessage = e.what();
+
+        // Verifiquem si l'error és de clau duplicada
+        if (errorMessage.find("Duplicate entry") != std::string::npos) {
+            // Extreiem el camp afectat de l'error
+            if (errorMessage.find("PRIMARY") != std::string::npos) {
+                throw std::runtime_error("sobrenom o el correu electrònic ja existeixen");
             }
         }
-        throw std::runtime_error("Error en registrar l'usuari: " + std::string(e.what()));
+
+        // Si no és un error conegut, llancem un error genèric
+        throw std::runtime_error("Error en registrar l'usuari: " + errorMessage);
     }
+
 }

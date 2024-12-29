@@ -3,11 +3,11 @@
 
 #include <iostream>
 #include <string>
-#include "C:/Users/NBCom/OneDrive/Escritorio/Mysql/mysql-connector-c++-9.1.0-winx64/include/jdbc/mysql_driver.h"
-#include "C:/Users/NBCom/OneDrive/Escritorio/Mysql/mysql-connector-c++-9.1.0-winx64/include/jdbc/mysql_connection.h"
-#include "C:/Users/NBCom/OneDrive/Escritorio/Mysql/mysql-connector-c++-9.1.0-winx64/include/jdbc/cppconn/prepared_statement.h"
-#include "C:/Users/NBCom/OneDrive/Escritorio/Mysql/mysql-connector-c++-9.1.0-winx64/include/jdbc/cppconn/resultset.h"
-#include "C:/Users/NBCom/OneDrive/Escritorio/Mysql/mysql-connector-c++-9.1.0-winx64/include/jdbc/cppconn/exception.h"
+#include <mysql_driver.h>
+#include <mysql_connection.h>
+#include <cppconn/prepared_statement.h>
+#include <cppconn/resultset.h>
+#include <cppconn/exception.h>
 
 using namespace std;
 
