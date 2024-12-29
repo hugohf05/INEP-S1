@@ -12,13 +12,13 @@ TxRegistraUsuari::TxRegistraUsuari(const std::string& nom, const std::string& so
 void TxRegistraUsuari::executar() {
     ConnexioBD& connexio = *ConnexioBD::getInstance();
 
-    // Verificar subscripció vàlida
+    // Verificar subscripciï¿½ vï¿½lida
     if (subscripcio != "Completa" && subscripcio != "Cinefil" && subscripcio != "Infantil") {
-        throw std::invalid_argument("Subscripció no vàlida.");
+        throw std::invalid_argument("Subscripciï¿½ no vï¿½lida.");
     }
 
     // Consulta SQL per inserir l'usuari
-    std::string query = "INSERT INTO Usuari (sobrenom, nom, contrasenya, correu_electronic, data_naixement, subscripcio) "
+    std::string query = "INSERT INTO usuari (sobrenom, nom, contrasenya, correu_electronic, data_naixement, subscripcio) "
         "VALUES ('" + sobrenom + "', '" + nom + "', '" + contrasenya + "', '" + correuElectronic +
         "', '" + dataNaixement + "', '" + subscripcio + "')";
 
@@ -28,7 +28,7 @@ void TxRegistraUsuari::executar() {
     catch (const sql::SQLException& e) {
         if (std::string(e.what()).find("Duplicate entry") != std::string::npos) {
             if (std::string(e.what()).find("correu_electronic") != std::string::npos) {
-                throw std::runtime_error("Ja existeix un usuari amb aquest correu electrònic.");
+                throw std::runtime_error("Ja existeix un usuari amb aquest correu electrï¿½nic.");
             }
             else if (std::string(e.what()).find("sobrenom") != std::string::npos) {
                 throw std::runtime_error("Ja existeix un usuari amb aquest sobrenom.");

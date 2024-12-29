@@ -16,4 +16,4 @@ private:
     std::vector<DTOPelicula> relacionades;
 };
 
-#endif // TXCONSULTARELACIONADES_H
+#endif // TXCONSULTARELACIONADES_H#pragma once

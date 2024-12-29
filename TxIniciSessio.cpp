@@ -9,7 +9,7 @@ TxIniciSessio::TxIniciSessio(const string& sobrenomU, const string& contrasenyaU
 
 void TxIniciSessio::executar() {
     CercadoraUsuari cercador;
-    PassarelaUsuari* usuari = cercador.cerca(sobrenom);
+    PassarelaUsuari* usuari = cercador.cerca(sobrenom); //Pasar de instancia a puntero
     string contrasenyaBD = usuari->getContrasenya();
     if (contrasenyaBD != contrasenya) {
         throw runtime_error("Hi ha hagut un error amb el sobrenom o la contrasenya");

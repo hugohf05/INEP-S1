@@ -20,17 +20,10 @@ string PetitFlix::obteModalitatUsuariLoggejat() const {
     return usuariLoggejat->getSubscricpio();
 }
 
-void PetitFlix::iniciaSessio(PassarelaUsuari* usuari){
-if (estaUsuariLoggejat()) {
-        throw std::runtime_error("Ja hi ha un usuari loggejat");
-    }
-    usuariLoggejat = usuari;
+void PetitFlix::iniciaSessio(PassarelaUsuari* nouUsuari) {
+    usuariLoggejat = nouUsuari;
 }
 
-// Cerrar sesión
 void PetitFlix::tancaSessio() {
-    if (!estaUsuariLoggejat()) {
-        throw std::runtime_error("No hi ha cap sessió per tancar");
-    }
     usuariLoggejat = nullptr;
 }

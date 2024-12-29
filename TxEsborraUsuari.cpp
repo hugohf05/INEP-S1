@@ -11,7 +11,7 @@ void TxEsborrarUsuari::executar() {
     PassarelaUsuari* usuari = sistema.obtenirUsuariLoggejat();
 
     if (usuari->getContrasenya() != contrasenya) {
-        throw runtime_error("Error: La contrasenya no és correcta.");
+        throw runtime_error("Error: La contrasenya no ï¿½s correcta.");
     }
 
     usuari->esborra();

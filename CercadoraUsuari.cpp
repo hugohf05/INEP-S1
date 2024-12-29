@@ -4,7 +4,7 @@
 PassarelaUsuari* CercadoraUsuari::cerca(const string& sobrenomU) {
     ConnexioBD& con = *ConnexioBD::getInstance();
     PassarelaUsuari* info = new PassarelaUsuari();
-    string sql = "SELECT * FROM Usuari WHERE sobrenom = '" + sobrenomU + "'";
+    string sql = "SELECT * FROM usuari WHERE sobrenom = '" + sobrenomU + "'";
 
     sql::ResultSet* res = con.consultaSQL(sql);
     if (res->next()) {
@@ -21,6 +21,5 @@ PassarelaUsuari* CercadoraUsuari::cerca(const string& sobrenomU) {
     }
     return info;
 }
-
 
 //Finish

@@ -4,7 +4,6 @@
 #include "DTOContingut.h"
 
 class DTOPelicula : public DTOContingut {
-
 public:
     DTOPelicula()
         : DTOContingut("", "", ""), dataEstrena(""), duracio(0) {

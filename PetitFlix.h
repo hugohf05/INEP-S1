@@ -21,7 +21,8 @@ public:
 
     string obteModalitatUsuariLoggejat() const;
 
-    void iniciaSessio(PassarelaUsuari* usuari);
+    void iniciaSessio(PassarelaUsuari* nouUsuari);
+
     void tancaSessio();
 };
 

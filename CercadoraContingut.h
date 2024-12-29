@@ -6,24 +6,46 @@
 #include "DTOPelicula.h"
 #include "Connexio.h"
 #include "DTOSerie.h"
+#include "DTOCapitol.h"
 
 class CercadoraContingut {
 public:
-    // Obtener la instancia única (patrón Singleton)
+    // Obtener la instancia ï¿½nica (patrï¿½n Singleton)
     static CercadoraContingut& getInstance() {
         static CercadoraContingut instance;
         return instance;
     }
 
-    // Consulta de próximas películas
+    // Consulta de prï¿½ximas pelï¿½culas
     std::vector<DTOPelicula> cercaProperesPelicules(const std::string& modalitat);
 
-    // Consulta de próximas series
+    // Consulta de prï¿½ximas series
     std::vector<DTOSerie> cercaProperesSeries(const std::string& modalitat);
+
+    //Consulta de les ultimes pelÂ·lÃ­cules estrenades
+    vector<DTOPelicula> cercaUltimesPelicules(const string& modalitat);
+    
+    //Consulta de les ultimes sÃ¨ries estrenades
+    vector<DTOSerie> cercaUltimesSeries(const string& modalitat);
+
+    //Consulta per obtenir el numero de la ultima tmeporada estrenada d'una sÃ¨rie
+    int obteUltimaTemporadaEstrena(const std::string& titolSerie);
+
+    //Consulta de l'ultim capÃ­tol d'una temporada
+    DTOCapitol obteUltimCapitolDeTemporada(const std::string& titolSerie, int temporada);
 
     DTOPelicula cercaPelicula(const std::string& titol);
 
     std::vector<DTOPelicula> cercaRelacionades(const std::string& titol);
+
+    //Consulta la serie on s.titol = titol
+    DTOSerie cercaSerie(const std::string& titol);
+
+    //Consulta el nÃºmero de temporades d'una sÃ¨rie
+    int obtenirNumeroTemporades(const string& titol);
+
+    //Consulta tots els capÃ­tols d'una temporada
+    vector<DTOCapitol> obtenirCapitolsPerTemporada(const string& titol_serie, int numero_temporada);
 
 
 private:

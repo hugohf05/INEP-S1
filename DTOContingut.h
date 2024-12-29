@@ -11,12 +11,12 @@ public:
 
     virtual ~DTOContingut() {}
 
-    // Métodos accesores
+    // Mï¿½todos accesores
     std::string obteTitol() const { return titol; }
     std::string obteDescripcio() const { return descripcio; }
     std::string obteQualificacio() const { return qualificacio; }
 
-    // Método virtual puro para obtener el tipo de contenido
+    // Mï¿½todo virtual puro para obtener el tipo de contenido
     virtual std::string obteTipus() const = 0;
 
 protected:

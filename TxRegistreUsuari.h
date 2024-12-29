@@ -19,4 +19,4 @@ private:
     std::string subscripcio;
 };
 
-#endif // TXREGISTRAUSUARI_H
+#endif // TXREGISTRAUSUARI_H#pragma once

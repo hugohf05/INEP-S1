@@ -8,6 +8,6 @@ void TxConsultaPelicula::executar() {
     pelicula = cercadora.cercaPelicula(titol);
 }
 
-DTOPelicula TxConsultaPelicula::obteResultat(){
+DTOPelicula TxConsultaPelicula::obteResultat() {
     return pelicula;  // Transfiere la propiedad del recurso
 }

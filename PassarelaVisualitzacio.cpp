@@ -8,10 +8,8 @@ void PassarelaVisualitzacio::registra() {
     ConnexioBD& connexio = *ConnexioBD::getInstance();
 
     try {
-        PetitFlix& sistema = PetitFlix::getInstance();
-        PassarelaUsuari* u = sistema.obtenirUsuariLoggejat();
-        string sobrenomUsuari = u->getSobrenom();
-        // Comprovar si ja existeix una visualització per a aquest usuari i pel·lícula
+        string sobrenomUsuari = "done";
+        // Comprovar si ja existeix una visualitzaciï¿½ per a aquest usuari i pelï¿½lï¿½cula
         std::string queryCheck =
             "SELECT num_visualitzacions FROM visualitzacio_pelicula "
             "WHERE sobrenom_usuari = '" + sobrenomUsuari + "' AND titol_pelicula = '" + titolPelicula + "'";
@@ -19,7 +17,7 @@ void PassarelaVisualitzacio::registra() {
         unique_ptr<sql::ResultSet> res(connexio.consultaSQL(queryCheck));
 
         if (res->next()) {
-            // Actualitzar el número de visualitzacions si ja existeix el registre
+            // Actualitzar el nï¿½mero de visualitzacions si ja existeix el registre
             int numVisualitzacions = res->getInt("num_visualitzacions") + 1;
 
             std::string queryUpdate =
@@ -37,7 +35,6 @@ void PassarelaVisualitzacio::registra() {
         }
     }
     catch (const sql::SQLException& e) {
-        throw std::runtime_error("Error al registrar la visualització: " + std::string(e.what()));
+        throw std::runtime_error("Error al registrar la visualitzaciï¿½: " + std::string(e.what()));
     }
 }
-

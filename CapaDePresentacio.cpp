@@ -1,14 +1,13 @@
 #include "CapaDePresentacio.h"
-
+#include "CercadoraContingut.h"
 
 void CapaDePresentacio::iniciarSessio() {
     string sobrenom, contrasenya;
 
     cout << "** Inici Sessio **" << endl;
-    cout << "Sobrenom:" << endl;
+    cout << "Sobrenom:";
     cin >> sobrenom;
-    cout << "Contrasenya:" << endl;
-    cin >> contrasenya;
+    contrasenya = llegirContrasenya();
 
     try {
         TxIniciSessio txI(sobrenom, contrasenya);
@@ -120,11 +119,11 @@ void CapaDePresentacio::modificaUsuari() {
     else {
         cout << "Error al consultar l'usuari." << endl;
     }
- 
+
 }
 
 //Funcion para satisfacer RIT: No mostrar contrasenya
-string llegirContrasenya() {
+string CapaDePresentacio::llegirContrasenya() {
     string contrasenya;
     char ch;
 
@@ -230,6 +229,120 @@ void CapaDePresentacio::visualitzarPelicula() {
     }
 }
 
+void CapaDePresentacio::visualitzarCapitol() {
+    string titolSerie;
+
+    cout << "** Visualitzar Capítol **" << endl;
+    cout << "Nom de la sèrie: ";
+    cin.ignore();
+    getline(cin, titolSerie);
+
+    try {
+        //Transacció per obtenir la informació de la sèrie
+        TxConsultaSerie txConsulta(titolSerie);
+        txConsulta.executar();
+        DTOSerie serie = txConsulta.obteResultat();
+
+        //Comprovar si la sèrie existeix
+        if (serie.obteTitol().empty()) {
+            cout << "La sèrie no existeix o no està disponible." << endl;
+            return;
+        }
+
+        //Transacció per obtenir el número de temporades de la sèrie
+        TxConsultaTemporades txConsultaT(titolSerie);
+        txConsultaT.executar();
+        int temporades = txConsultaT.obteResultat();
+
+        cout << "La sèrie té " << temporades << " temporades." << endl;
+        cout << "Escull temporada: ";
+        int temporada;
+        cin >> temporada;
+        //Comprovar si el número de la temporada introduït es vàlid
+        if (temporada <= 0 || temporada > temporades) {
+            cout << "La temporada seleccionada no existeix." << endl;
+            return;
+        }
+
+        //Transacció per obtenir el número de capítols de la temporada seleccionada
+        TxConsultaCapitols txConsultaC(titolSerie, temporada);
+        txConsultaC.executar();
+        const auto& capitols = txConsultaC.obteResultat();
+
+        //Comprovar si hi han capitols a la temporada seleccionada
+        if (capitols.empty()) {
+            cout << "No s'han trobat capítols per a la temporada seleccionada." << endl;
+        }
+
+        //Mostrar la informació dels capítols
+        for (auto it = capitols.rbegin(); it != capitols.rend(); ++it) {
+            const auto& capitol = *it;
+            cout << capitol.obteNumeroCapitol() << ". ";
+            cout << capitol.obteTitolCapitol() << "; ";
+            cout << capitol.obteDataEstrena() << "; ";
+
+            //Transacció per obtenir si un capítol ja ha estat visualitzat per l'usuari
+            TxConsultaVisualitzacioCapitol txConsulta(titolSerie, temporada, capitol.obteNumeroCapitol());
+            txConsulta.executar();
+            string estatVisualitzacio = txConsulta.obteResultat();
+
+            if (estatVisualitzacio != "no visualitzat") {
+                cout << "Visualitzat el " << estatVisualitzacio << endl;
+            }
+            else {
+                cout << "No visualitzat" << endl;
+            }
+        }
+
+        cout << "Número de capítol a visualitzar: ";
+        int numCapitol;
+        cin >> numCapitol;
+
+        //Obtenir la data d'estrena del capítol seleccionat
+        auto it = std::find_if(capitols.begin(), capitols.end(),
+            [numCapitol](const auto& capitol) {
+                return capitol.obteNumeroCapitol() == numCapitol;
+            });
+
+        if (it == capitols.end()) {
+            cout << "El número de capítol seleccionat no és vàlid." << endl;
+            return;
+        }
+
+        const auto& capitolSeleccionat = *it;
+        string dataEstrena = capitolSeleccionat.obteDataEstrena();
+
+        //Obtenir la data actual
+        time_t t = time(nullptr);
+        tm* now = localtime(&t);
+        char fechaActual[11]; // YYYY-MM-DD
+        strftime(fechaActual, sizeof(fechaActual), "%Y-%m-%d", now);
+
+        //Comprovar si el capitol ja ha estat estrenat
+        if (dataEstrena > fechaActual) {
+            cout << "El capítol seleccionat encara no ha estat estrenat." << endl;
+            return;
+        }
+
+        char resposta;
+        cout << "Vols continuar amb la visualització (S/N): ";
+        cin >> resposta;
+
+        if (tolower(resposta) == 's') {
+            // Transacció per registrar la visualització
+            TxRegistreVisualitzacioCapitol txRegistre(titolSerie, temporada, numCapitol);
+            txRegistre.executar();
+            cout << "La visualització s'ha registrat correctament" << endl;
+        }
+        else {
+            cout << "Visualització cancel·lada.\n";
+        }
+    }
+    catch (const exception& e) {
+        cerr << "Error: " << e.what() << "\n";
+    }
+}
+
 
 //NO TOCAR, PERFECTO
 void CapaDePresentacio::consultaProperesEstrenes() {
@@ -277,6 +390,64 @@ void CapaDePresentacio::consultaProperesEstrenes() {
                 ++i;
             }
         }
+    }
+    catch (const exception& e) {
+        cout << "Error: " << e.what() << endl;
+    }
+}
+
+void CapaDePresentacio::consultaUltimesNovetats() {
+    string modalitat;
+    PetitFlix& sistema = PetitFlix::getInstance();
+
+    //Comprovar si hi ha un usuari loggejat
+    if (!sistema.estaUsuariLoggejat()) {
+        cout << "** Consulta Properes Estrenes **" << endl;
+        cout << "Introdueix la modalitat de subscripció: ";
+        cin >> modalitat;
+    }
+    else {
+        modalitat = sistema.obteModalitatUsuariLoggejat();
+    }
+
+    try {
+        TxConsultaUltimesNovetats txConsulta(modalitat);
+        txConsulta.executar();
+
+        const auto& novetatsContingut = txConsulta.obteResultatContingut();
+
+        // Mostrar informació de les pel·lícules
+        cout << "** Novetats pel·lícules **" << endl;
+        cout << "********************************" << endl;
+        int i = 1;
+        for (const auto& novetat : novetatsContingut) {
+            if (auto pelicula = dynamic_cast<DTOPelicula*>(novetat.get())) {
+                cout << i << ".- ";
+                cout << pelicula->obteDataEstrena() << ": "
+                    << pelicula->obteTitol() << "; "
+                    << pelicula->obteQualificacio() << "; "
+                    << pelicula->obteDuracio() << " min." << endl;
+                ++i;
+            }
+        }
+
+        // Mostrar informació de les sèries
+        cout << "** Novetats sèries **" << endl;
+        cout << "********************************" << endl;
+        i = 1;
+        for (const auto& novetat : novetatsContingut) {
+            if (auto serie = dynamic_cast<DTOSerie*>(novetat.get())) {
+                cout << i << ".- ";
+                cout << serie->obteDataEstrena() << ": " << serie->obteTitol() << "; " << serie->obteQualificacio();
+                TxConsultaNovetatsSerie consulta(serie->obteTitol());
+                consulta.executar();
+                int ultimaTemporada = consulta.obteResultatTemporada();
+                auto ultimCapitol = consulta.obteResultatCapitol();
+                cout << "; Temporada: " << ultimaTemporada << "; Capítol: " << ultimCapitol.obteNumeroCapitol() << endl;
+                ++i;
+            }
+        }
+
     }
     catch (const exception& e) {
         cout << "Error: " << e.what() << endl;

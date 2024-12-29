@@ -1,5 +1,5 @@
 #ifndef DTOUSUARI_H // Si no se ha definido DTOUSUARI_H
-#define DTOUSUARI_H // Defínelo ahora
+#define DTOUSUARI_H // Defï¿½nelo ahora
 
 #include "PassarelaUsuari.h"
 #include <string>

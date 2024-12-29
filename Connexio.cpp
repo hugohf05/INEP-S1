@@ -4,7 +4,7 @@ ConnexioBD* ConnexioBD::instance = nullptr;
 
 ConnexioBD::ConnexioBD() {
     driver = sql::mysql::get_mysql_driver_instance();
-    con = driver->connect("ubiwan.epsevg.upc.edu:3306", "inep18", "aFoo1ahNgohGei");  // Establir connexió
+    con = driver->connect("ubiwan.epsevg.upc.edu:3306", "inep18", "aFoo1ahNgohGei");  // Establir connexiï¿½
     con->setSchema("inep18");  // Seleccionar la base de dades
 }
 
@@ -26,7 +26,7 @@ sql::ResultSet* ConnexioBD::consultaSQL(const string& consulta) {
     return stmt->executeQuery(consulta);  // Executar la consulta SELECT
 }
 
-// Operació d'execució (INSERT, UPDATE, DELETE)
+// Operaciï¿½ d'execuciï¿½ (INSERT, UPDATE, DELETE)
 // Operaciï¿½ d'execuciï¿½ (INSERT, UPDATE, DELETE)
 void ConnexioBD::execSQL(const string& comanda) {
     sql::Statement* stmt = con->createStatement();

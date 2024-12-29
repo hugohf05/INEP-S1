@@ -3,11 +3,11 @@
 
 #include <iostream>
 #include <string>
-#include <mysql_driver.h>
-#include <mysql_connection.h>
-#include <cppconn/prepared_statement.h>
-#include <cppconn/resultset.h>
-#include <cppconn/exception.h>
+#include "C:/Users/NBCom/OneDrive/Escritorio/Mysql/mysql-connector-c++-9.1.0-winx64/include/jdbc/mysql_driver.h"
+#include "C:/Users/NBCom/OneDrive/Escritorio/Mysql/mysql-connector-c++-9.1.0-winx64/include/jdbc/mysql_connection.h"
+#include "C:/Users/NBCom/OneDrive/Escritorio/Mysql/mysql-connector-c++-9.1.0-winx64/include/jdbc/cppconn/prepared_statement.h"
+#include "C:/Users/NBCom/OneDrive/Escritorio/Mysql/mysql-connector-c++-9.1.0-winx64/include/jdbc/cppconn/resultset.h"
+#include "C:/Users/NBCom/OneDrive/Escritorio/Mysql/mysql-connector-c++-9.1.0-winx64/include/jdbc/cppconn/exception.h"
 
 using namespace std;
 
@@ -21,16 +21,16 @@ private:
     static ConnexioBD* instance;
 
 public:
-    // Constructor: Crea la connexió a la base de dades
+    // Constructor: Crea la connexiï¿½ a la base de dades
     static ConnexioBD* getInstance();
 
-    // Destructor: Tanca la connexió a la base de dades
+    // Destructor: Tanca la connexiï¿½ a la base de dades
     ~ConnexioBD();
 
     // Consulta SELECT
     sql::ResultSet* consultaSQL(const string& consulta);
 
-    // Operació d'execució (INSERT, UPDATE, DELETE)
+    // Operaciï¿½ d'execuciï¿½ (INSERT, UPDATE, DELETE)
     void execSQL(const string& comanda);
 };
 

@@ -13,4 +13,4 @@ public:
     void executar();
 };
 
-#endif // TXESBORRARUSUARI_H
+#endif // TXESBORRARUSUARI_H#pragma once

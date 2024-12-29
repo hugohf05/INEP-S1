@@ -19,7 +19,7 @@ public:
         qualificacio(qualificacio) {
     }
 
-    // Métodos de acceso (getters)
+    // Mï¿½todos de acceso (getters)
     std::string obteTitolSerie() const { return titolSerie; }
     int obteNumeroTemporada() const { return numTemporada; }
     int obteNumeroCapitol() const { return numCapitol; }

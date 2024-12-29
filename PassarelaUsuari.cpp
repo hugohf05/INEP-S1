@@ -16,8 +16,8 @@ PassarelaUsuari::PassarelaUsuari(const string& sobrenomU, const string& nomU,
     const string& correu_electronicU, const string& contrasenyaU,
     const string& data_naixementU, const string& subscricpioU) {
 
-	sobrenom = sobrenomU; // sobrenom atribut privat de la classe
-	nom = nomU; // nom atribut privat de la classe
+    sobrenom = sobrenomU; // sobrenom atribut privat de la classe
+    nom = nomU; // nom atribut privat de la classe
     correu_electronic = correu_electronicU; // correuElectronic atribut
     contrasenya = contrasenyaU;
     data_naixement = data_naixementU;
@@ -41,20 +41,20 @@ void PassarelaUsuari::setDataNaixement(const string& nouDataNaixement) { data_na
 void PassarelaUsuari::setSubscripcio(const string& nouSubscripcio) { subscripcio = nouSubscripcio; }
 
 
-// Operación para insertar un usuario
+// Operaciï¿½n para insertar un usuario
 void PassarelaUsuari::insereix() {
     try {
         ConnexioBD& con = *ConnexioBD::getInstance();
 
         // Verificar si el sobrenom o el correu ya existen
-        string checkQuery = "SELECT COUNT(*) FROM Usuari WHERE sobrenom = '" + sobrenom +
+        string checkQuery = "SELECT COUNT(*) FROM usuari WHERE sobrenom = '" + sobrenom +
             "' OR correu_electronic = '" + correu_electronic + "';";
         sql::ResultSet* result = con.consultaSQL(checkQuery);
 
         if (result->next() && result->getInt(1) > 0) {
-            throw runtime_error("El sobrenom o el correu electrònic ja existeixen.");
+            throw runtime_error("El sobrenom o el correu electrï¿½nic ja existeixen.");
         }
-        string query = "INSERT INTO Usuari (sobrenom, nom, correu_electronic, contrasenya, "
+        string query = "INSERT INTO usuari (sobrenom, nom, correu_electronic, contrasenya, "
             "data_naixement, subscripcio) VALUES ('" +
             sobrenom + "', '" + nom + "', '" + correu_electronic + "', '" +
             contrasenya + "', '" + data_naixement + "', '" + subscripcio + "');";
@@ -65,11 +65,11 @@ void PassarelaUsuari::insereix() {
     }
 }
 
-// Operación para modificar un usuario
+// Operaciï¿½n para modificar un usuario
 void PassarelaUsuari::modifica() {
     try {
         ConnexioBD& con = *ConnexioBD::getInstance();
-        string query = "UPDATE Usuari SET nom = '" + nom +
+        string query = "UPDATE usuari SET nom = '" + nom +
             "', correu_electronic = '" + correu_electronic +
             "' WHERE sobrenom = '" + sobrenom + "'";
         con.execSQL(query);
@@ -80,13 +80,12 @@ void PassarelaUsuari::modifica() {
     }
 }
 
-// Operación para borrar un usuario
+// Operaciï¿½n para borrar un usuario
 void PassarelaUsuari::esborra() {
     try {
         ConnexioBD& con = *ConnexioBD::getInstance();
-        string query = "DELETE FROM Usuari WHERE sobrenom = '" + sobrenom + "';";
+        string query = "DELETE FROM usuari WHERE sobrenom = '" + sobrenom + "';";
         con.execSQL(query);
-        cout << "Usuari '" << sobrenom << "' esborrat correctament." << endl;
     }
     catch (const sql::SQLException& e) {
         throw runtime_error("Error al esborrar l'usuari: " + string(e.what()));

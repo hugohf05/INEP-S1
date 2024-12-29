@@ -11,15 +11,15 @@ public:
     // Constructor
     explicit TxConsultaProperesEstrenes(const std::string& modalitat);
 
-    // Ejecutar la transacción
+    // Ejecutar la transacciï¿½n
     void executar();
 
-    // Obtener el resultado de la transacción
+    // Obtener el resultado de la transacciï¿½n
     const std::vector<std::unique_ptr<DTOContingut>>& obteResultat() const;
 
 private:
-    std::string modalitat; // Modalitat de subscripció
+    std::string modalitat; // Modalitat de subscripciï¿½
     std::vector<std::unique_ptr<DTOContingut>> estrenes; // Resultados de la consulta
 };
 
-#endif // TXCONSULTAPROPERES_ESTRENES_H
+#endif // TXCONSULTAPROPERES_ESTRENES_H#pragma once

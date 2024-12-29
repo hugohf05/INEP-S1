@@ -12,4 +12,4 @@ private:
     std::string titolPelicula;
 };
 
-#endif // TXREGISTREVISUALITZACIO_H
+#endif // TXREGISTREVISUALITZACIO_H#pragma once

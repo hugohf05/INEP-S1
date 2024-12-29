@@ -4,22 +4,24 @@
 #include "DTOContingut.h"
 
 class DTOSerie : public DTOContingut {
-    friend class CapaDePresentacio; // Ahora CapaDePresentacio puede acceder a los atributos privados de DTOPelicula directamente.
 
 public:
-    DTOSerie(const string& titol, const string& descripcio, const string& qualificacio,
-        const string& dataEstrena, int totalCapitols)
+    DTOSerie()
+        : DTOContingut("", "", ""), dataEstrena(""), totalCapitols(0) {
+    }
+
+    DTOSerie(const std::string& titol, const std::string& descripcio, const std::string& qualificacio,
+        const std::string& dataEstrena, int totalCapitols)
         : DTOContingut(titol, descripcio, qualificacio), dataEstrena(dataEstrena), totalCapitols(totalCapitols) {
     }
 
-    string obteDataEstrena() const { return dataEstrena; }
+    std::string obteDataEstrena() const { return dataEstrena; }
     int obteTotalCapitols() const { return totalCapitols; }
-    string obteTipus() const override { return "serie"; }
+    std::string obteTipus() const override { return "serie"; }
 
 private:
-    string dataEstrena;
-    int totalCapitols;
+    std::string dataEstrena; // Miembro privado
+    int totalCapitols;       // Miembro privado
 };
-
 
 #endif
