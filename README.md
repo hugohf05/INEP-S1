@@ -33,14 +33,17 @@ Ahora, ejecuta el script de construcción para compilar vcpkg:
 Este comando descargará las dependencias necesarias y compilará vcpkg.
 
 Integrar vcpkg con Visual Studio (opcional pero recomendado):
+
 Si estás usando Visual Studio, es útil integrar vcpkg para que el IDE lo reconozca automáticamente y configure las rutas de inclusión.
 
 Ejecuta:
 
 .\vcpkg integrate install
+
 Esto hará que las bibliotecas gestionadas por vcpkg se encuentren automáticamente en tu proyecto de Visual Studio.
 
 Paso 2: Instalar nlohmann/json usando vcpkg
+
 Una vez que tienes vcpkg instalado, puedes usarlo para instalar la biblioteca nlohmann/json.
 
 Instalar la biblioteca:
@@ -48,6 +51,7 @@ Instalar la biblioteca:
 Ejecuta el siguiente comando en la misma terminal donde tienes vcpkg:
 
 .\vcpkg install nlohmann-json
+
 Esto descargará, compilará y configurará la biblioteca nlohmann/json para tu sistema.
 
 Verificar la instalación:
