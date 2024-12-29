@@ -43,6 +43,7 @@ Una vez que tienes vcpkg instalado, puedes usarlo para instalar la biblioteca nl
 Instalar la biblioteca:
 
 Ejecuta el siguiente comando en la misma terminal donde tienes vcpkg:
+
 .\vcpkg install nlohmann-json
 Esto descargará, compilará y configurará la biblioteca nlohmann/json para tu sistema.
 
