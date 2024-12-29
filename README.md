@@ -36,6 +36,7 @@ Integrar vcpkg con Visual Studio (opcional pero recomendado):
 Si estás usando Visual Studio, es útil integrar vcpkg para que el IDE lo reconozca automáticamente y configure las rutas de inclusión.
 
 Ejecuta:
+
 .\vcpkg integrate install
 Esto hará que las bibliotecas gestionadas por vcpkg se encuentren automáticamente en tu proyecto de Visual Studio.
 
