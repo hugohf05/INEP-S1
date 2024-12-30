@@ -1,10 +1,15 @@
 #include "PassarelaVisualitzacio.h"
-#include "Connexio.h"
-#include <string>
 
-PassarelaVisualitzacio::PassarelaVisualitzacio(const string& titol) : titolPelicula(titol) {}
+PassarelaVisualitzacioPelicula::PassarelaVisualitzacioPelicula() {
+    titolPelicula = "";
+    dataVisualitzacio = "";
+    numVisualitzacions = 0;
+}
 
-void PassarelaVisualitzacio::registra() {
+PassarelaVisualitzacioPelicula::PassarelaVisualitzacioPelicula(const string& titol)
+    : titolPelicula(titol), dataVisualitzacio(""), numVisualitzacions(0) {}
+
+void PassarelaVisualitzacioPelicula::registra() {
     ConnexioBD& connexio = *ConnexioBD::getInstance();
 
     try {
@@ -40,3 +45,16 @@ void PassarelaVisualitzacio::registra() {
         throw std::runtime_error("Error al registrar la visualitzaci�: " + std::string(e.what()));
     }
 }
+
+string PassarelaVisualitzacioPelicula::obteTitol() const {
+    return titolPelicula;
+}
+
+string PassarelaVisualitzacioPelicula::obteDataVisualitzacio() const {
+    return dataVisualitzacio;
+}
+
+int PassarelaVisualitzacioPelicula::obteNumVisualitzacions() const {
+    return numVisualitzacions;
+}
+

@@ -9,16 +9,16 @@ TxConsultaUltimesNovetats::TxConsultaUltimesNovetats(const std::string& modalita
 
 void TxConsultaUltimesNovetats::executar() {
     try {
-        // Consultar películas
+        // Consultar peliculas
         vector<DTOPelicula> pelicules = CercadoraContingut::getInstance().cercaUltimesPelicules(modalitat);
         for (auto& pelicula : pelicules) {
-            // Insertar las películas como punteros a DTOContingut
+            // Insertar las peliculas como punteros a DTOContingut
             novetatsContingut.push_back(make_unique<DTOPelicula>(std::move(pelicula)));
         }
         vector<DTOSerie> series = CercadoraContingut::getInstance().cercaUltimesSeries(modalitat);
         for (auto& serie : series) {
-            // Insertar los capítulos como punteros a DTOContingut
-            // Insertar el capitol como un puntero único a DTOContingut
+            // Insertar los capitulos como punteros a DTOContingut
+            // Insertar el capitol como un puntero unico a DTOContingut
             novetatsContingut.push_back(std::make_unique<DTOSerie>(std::move(serie)));
         }
     }

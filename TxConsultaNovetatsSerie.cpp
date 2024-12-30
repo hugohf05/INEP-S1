@@ -6,7 +6,7 @@ void TxConsultaNovetatsSerie::executar() {
 	_ultimCapitol = CercadoraContingut::getInstance().obteUltimCapitolDeTemporada(_titolSerie, _numTemporada);
 }
 
-//Obtenim el resultat de la transacció
+//Obtenim el resultat de la transaccio
 int TxConsultaNovetatsSerie::obteResultatTemporada() {
 	return _numTemporada;
 }

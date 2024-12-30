@@ -132,9 +132,11 @@
   <ItemGroup>
     <ClCompile Include="CapaDePresentacio.cpp" />
     <ClCompile Include="CercadoraContingut.cpp" />
-    <ClCompile Include="CercadoraPelicula.cpp" />
     <ClCompile Include="CercadoraUsuari.cpp" />
+    <ClCompile Include="CercadoraVisualitzacions.cpp" />
     <ClCompile Include="Connexio.cpp" />
+    <ClCompile Include="CtrlConsultarPeliculesMesVistes.cpp" />
+    <ClCompile Include="CtrlModificaUsuari.cpp" />
     <ClCompile Include="INEP-S1.cpp" />
     <ClCompile Include="PassarelaPelicula.cpp" />
     <ClCompile Include="PassarelaUsuari.cpp" />
@@ -146,11 +148,15 @@
     <ClCompile Include="TxConsultaPelicula.cpp" />
     <ClCompile Include="TxConsultaProperesEstrenes.cpp" />
     <ClCompile Include="TxConsultaRelacionades.cpp" />
+    <ClCompile Include="TxConsultarVisualitzacionsCapitols.cpp" />
+    <ClCompile Include="TxConsultarVisualitzacionsPelicules.cpp" />
     <ClCompile Include="TxConsultaSerie.cpp" />
     <ClCompile Include="TxConsultaTemporades.cpp" />
     <ClCompile Include="TxConsultaUltimesNovetats.cpp" />
+    <ClCompile Include="TxConsultaUsuari.cpp" />
     <ClCompile Include="TxConsultaVisualitzacioCapitol.cpp" />
     <ClCompile Include="TxEsborraUsuari.cpp" />
+    <ClCompile Include="TxInfoVisualitzacions.cpp" />
     <ClCompile Include="TxIniciSessio.cpp" />
     <ClCompile Include="TxRegistreUsuari.cpp" />
     <ClCompile Include="TxRegistreVisualitzacio.cpp" />
@@ -160,25 +166,44 @@
   <ItemGroup>
     <ClInclude Include="CapaDePresentacio.h" />
     <ClInclude Include="CercadoraContingut.h" />
-    <ClInclude Include="CercadoraPelicula.h" />
     <ClInclude Include="CercadoraUsuari.h" />
+    <ClInclude Include="CercadoraVisualitzacions.h" />
     <ClInclude Include="Connexio.h" />
+    <ClInclude Include="CtrlConsultarPeliculesMesVistes.h" />
+    <ClInclude Include="CtrlModificaUsuari.h" />
+    <ClInclude Include="DTOCapitol.h" />
     <ClInclude Include="DTOContingut.h" />
     <ClInclude Include="DTOPelicula.h" />
     <ClInclude Include="DTOSerie.h" />
     <ClInclude Include="DTOUsuari.h" />
+    <ClInclude Include="DTOVisualitzacioCapitol.h" />
+    <ClInclude Include="DTOVisualitzacioPelicula.h" />
     <ClInclude Include="PassarelaPelicula.h" />
     <ClInclude Include="PassarelaUsuari.h" />
     <ClInclude Include="PassarelaVisualitzacio.h" />
+    <ClInclude Include="PassarelaVisualitzacioCapitol.h" />
     <ClInclude Include="PetitFlix.h" />
+    <ClInclude Include="TxConsultaCapitols.h" />
+    <ClInclude Include="TxConsultaNovetatsSerie.h" />
     <ClInclude Include="TxConsultaPelicula.h" />
     <ClInclude Include="TxConsultaProperesEstrenes.h" />
     <ClInclude Include="TxConsultaRelacionades.h" />
+    <ClInclude Include="TxConsultarVisualitzacionsCapitols.h" />
+    <ClInclude Include="TxConsultarVisualitzacionsPelicules.h" />
+    <ClInclude Include="TxConsultaSerie.h" />
+    <ClInclude Include="TxConsultaTemporades.h" />
+    <ClInclude Include="TxConsultaUltimesNovetats.h" />
+    <ClInclude Include="TxConsultaUsuari.h" />
+    <ClInclude Include="TxConsultaVisualitzacioCapitol.h" />
     <ClInclude Include="TxEsborraUsuari.h" />
     <ClInclude Include="TxIniciSessio.h" />
     <ClInclude Include="TxRegistreUsuari.h" />
     <ClInclude Include="TxRegistreVisualitzacio.h" />
+    <ClInclude Include="TxRegistreVisualitzacioCapitol.h" />
     <ClInclude Include="TxTancaSessio.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

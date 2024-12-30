@@ -1,9 +1,9 @@
 #ifndef PETITFLIX_H
 #define PETITFLIX_H
 
-#include "PassarelaUsuari.h"
 #include <stdexcept>
 #include <string>
+#include "PassarelaUsuari.h"
 
 class PetitFlix {
 private:

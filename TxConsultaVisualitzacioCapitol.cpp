@@ -1,9 +1,9 @@
 #include "TxConsultaVisualitzacioCapitol.h"
-#include "PassarelaVisualitzacioCapitol.h"
+#include "CercadoraContingut.h"
 
 void TxConsultaVisualitzacioCapitol::executar() {
-    PassarelaVisualitzacioCapitol visualitzacio(_titolSerie, _numTemporada, _numCapitol);
-    dataVisualitzacio = visualitzacio.ConsultaVisualitzacioCapitol();
+    CercadoraContingut& cercadora = CercadoraContingut::getInstance();
+    dataVisualitzacio = cercadora.ConsultaVisualitzacioCapitol(_titolSerie, _numTemporada, _numCapitol);
 }
 
 string TxConsultaVisualitzacioCapitol::obteResultat() {

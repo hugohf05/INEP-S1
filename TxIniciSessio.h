@@ -14,7 +14,7 @@ public:
     //Constructor
     TxIniciSessio(const string& sobrenomU, const string& contrasenyaU);
     
-    //Metode per executar la transacció
+    //Metode per executar la transaccio
     void executar();
 };
 #endif

@@ -8,6 +8,8 @@
 #include "DTOUsuari.h"
 #include "DTOPelicula.h"
 #include "DTOSerie.h"
+#include "DTOVisualitzacioCapitol.h"
+#include "DTOVisualitzacioPelicula.h"
 #include "PetitFlix.h"
 #include "TxConsultaProperesEstrenes.h"
 #include "TxConsultaPelicula.h"
@@ -24,6 +26,15 @@
 #include "TxConsultaCapitols.h"
 #include "TxRegistreVisualitzacioCapitol.h"
 #include "TxConsultaVisualitzacioCapitol.h"
+#include "CtrlConsultarPeliculesMesVistes.h"
+#include "CtrlModificaUsuari.h"
+#include "TxInfoVisualitzacions.cpp"
+#include "TxConsultarVisualitzacionsCapitols.h"
+#include "TxConsultarVisualitzacionsPelicules.h"
+#include "CercadoraVisualitzacions.h"
+#include "CercadoraContingut.h"
+
+
 
 class CapaDePresentacio
 {
@@ -33,18 +44,18 @@ private:
 	//Constructor Privat
 	CapaDePresentacio() {}
 public:
-	//Metode per obtenir la única instància
+	//Metode per obtenir la unica instancia
 	static CapaDePresentacio& getInstance() {
 		static CapaDePresentacio instance;
 		return instance;
 	}
-	// aquí tots els métodes que
+	// aqui tots els metodes que
 	void iniciarSessio();
 	void registreUsuari();
 	void tancarSessio();
 
-	//Menú Gestió Usuaris
-	//void consultaUsuari();
+	//Menu Gestio Usuaris
+	void consultaUsuari();
 	void modificaUsuari();
 	string llegirContrasenya();
 	//void modificaContrasenya();
@@ -53,12 +64,12 @@ public:
 	//Menu Visualitzacio Continguts
 	void visualitzarPelicula();
 	void visualitzarCapitol();
-	//void consultarVisualitzacions();
+	void consultarVisualitzacions();
 
 	//Consultes
 	void consultaProperesEstrenes();
 	void consultaUltimesNovetats();
-	//void consultarPeliculesMesVistes();
+	void consultarPeliculesMesVistes();
 };
 
 #endif

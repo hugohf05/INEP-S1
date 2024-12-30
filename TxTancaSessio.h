@@ -11,7 +11,7 @@ public:
     //Constructor
     TxTancaSessio();
     
-    //Metode per executar la transacció
+    //Metode per executar la transaccio
     void executar();
 };
 #endif

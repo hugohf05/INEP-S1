@@ -13,10 +13,10 @@ public:
     //Constructor
     TxConsultaSerie(const std::string& titolSerie);
     
-    //Obtenim el resultat de la transacció
+    //Obtenim el resultat de la transaccio
     DTOSerie obteResultat() const;
     
-    //Metode per executar la transacció
+    //Metode per executar la transaccio
     void executar();
 };
 #endif

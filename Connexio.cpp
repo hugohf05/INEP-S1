@@ -7,8 +7,8 @@ using json = nlohmann::json;
 ConnexioBD* ConnexioBD::instance = nullptr;
 
 ConnexioBD::ConnexioBD() {
-    // Leer el archivo de configuración JSON
-    std::ifstream configFile("config.json");  // Archivo de configuración
+    // Leer el archivo de configuracion JSON
+    std::ifstream configFile("config.json");  // Archivo de configuracion
     json config;
     configFile >> config;
 
@@ -18,7 +18,7 @@ ConnexioBD::ConnexioBD() {
     std::string password = config["password"];
     std::string database = config["database"];
 
-    // Establecer la conexión a la base de datos usando los valores del archivo JSON
+    // Establecer la conexion a la base de datos usando los valores del archivo JSON
     driver = sql::mysql::get_mysql_driver_instance();
     con = driver->connect(host + ":" + std::to_string(port), user, password);
     con->setSchema(database);  // Seleccionar la base de datos

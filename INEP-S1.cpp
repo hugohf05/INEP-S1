@@ -1,6 +1,7 @@
 #include "CapaDePresentacio.h"
 #include "PetitFlix.h"
 #include <iostream>
+#include <limits>
 
 void iniciarSessio(CapaDePresentacio& presentacio) {
     presentacio.iniciarSessio();
@@ -19,30 +20,26 @@ void GestioUsuari(CapaDePresentacio& presentacio) {
         cout << "--------------------" << endl;
         cout << "1. Consulta usuari" << endl;
         cout << "2. Modifica usuari" << endl;
-        cout << "3. Modifica contrasenya" << endl;
-        cout << "4. Esborra usuari" << endl;
-        cout << "5. Tornar" << endl;
+        cout << "3. Esborra usuari" << endl;
+        cout << "4. Tornar" << endl;
         cout << "Escull una opcio: ";
         cin >> op;
 
         switch (op) {
         case 1:
-            //presentacio.consultaUsuari();
+            presentacio.consultaUsuari();
             break;
         case 2:
             presentacio.modificaUsuari();
             break;
         case 3:
-            //presentacio.modificaContrasenya();
-            break;
-        case 4:
             presentacio.esborraUsuari();
             break;
-        case 5:
-            // Tornar al menú principal
+        case 4:
+            // Tornar al menu principal
             return;
         default:
-            cout << "Opció no vàlida." << endl;
+            cout << "Opcio no valida." << endl;
             break;
         }
     } while (op != 5 && sistema.estaUsuariLoggejat());
@@ -69,13 +66,13 @@ void Visualitzar(CapaDePresentacio& presentacio) {
             presentacio.visualitzarCapitol();
             break;
         case 3:
-            //presentacio.consultarVisualitzacions();
+            presentacio.consultarVisualitzacions();
             break;
         case 4:
-            // Tornar al menú principal
+            // Tornar al menu principal
             return;
         default:
-            cout << "Opció no vàlida." << endl;
+            cout << "Opcio no valida." << endl;
             break;
         }
     } while (op != 4);
@@ -102,13 +99,13 @@ void Consultes(CapaDePresentacio& presentacio) {
             presentacio.consultaUltimesNovetats();
             break;
         case 3:
-            //presentacio.consultarPeliculesMesVistes();
+            presentacio.consultarPeliculesMesVistes();
             break;
         case 4:
-            // Tornar al menú principal
+            // Tornar al menu principal
             return;
         default:
-            cout << "Opció no vàlida." << endl;
+            cout << "Opcio no valida." << endl;
             break;
         }
     } while (op != 4);
@@ -145,6 +142,14 @@ int main() {
         cout << "Escull una opcio: ";
         cin >> opt;
 
+        // Manejo de entrada invalida
+        if (cin.fail()) {
+            cout << "Entrada no valida. Introdueix un numero." << endl;
+            cin.clear(); // Limpia el estado de error de cin
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Descarta la entrada invalida
+            continue;
+        }
+
         if (!sistema.estaUsuariLoggejat()) {
             switch (opt) {
             case 1:
@@ -160,7 +165,7 @@ int main() {
                 cout << "Sortint..." << endl;
                 return 0;
             default:
-                cout << "Opció no vàlida." << endl;
+                cout << "Opcio no valida." << endl;
                 break;
             }
         }
@@ -182,7 +187,7 @@ int main() {
                 cout << "Sortint..." << endl;
                 return 0;
             default:
-                cout << "Opció no vàlida." << endl;
+                cout << "Opcio no valida." << endl;
                 break;
             }
         }

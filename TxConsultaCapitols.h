@@ -13,10 +13,10 @@ public:
     //Constructor
     TxConsultaCapitols(const std::string& titolSerie, int temporada);
     
-    //Metode per executar la transacció
+    //Metode per executar la transaccio
     void executar();
     
-    //Obtenim el resultat de la transacció
+    //Obtenim el resultat de la transaccio
     vector<DTOCapitol> obteResultat();
 
 private:

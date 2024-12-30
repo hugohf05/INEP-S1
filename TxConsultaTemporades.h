@@ -12,10 +12,10 @@ public:
     //Constructor
     TxConsultaTemporades(const std::string& titolSerie);
     
-    //Metode per executar la transacció
+    //Metode per executar la transaccio
     void executar();
     
-    //Obtenim el resultat de la transacció
+    //Obtenim el resultat de la transaccio
     int obteResultat();
 
 private:

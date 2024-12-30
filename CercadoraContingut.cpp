@@ -75,7 +75,7 @@ vector<DTOPelicula> CercadoraContingut::cercaUltimesPelicules(const string& moda
         WHERE p.data_estrena <= NOW()
     )";
 
-    // Si modalitat no está vacío, añadimos el filtro de subscripción
+    // Si modalitat no esta vacio, añadimos el filtro de subscripcion
     if (!modalitat.empty()) {
         query += " AND EXISTS (SELECT 1 FROM usuari u WHERE u.subscripcio = '" + modalitat + "')";
     }
@@ -83,7 +83,7 @@ vector<DTOPelicula> CercadoraContingut::cercaUltimesPelicules(const string& moda
     // Añadir el ORDER BY y el LIMIT al final
     query += " ORDER BY p.data_estrena DESC LIMIT 5";
 
-    // Depuración: Verificar la consulta generada
+    // Depuracion: Verificar la consulta generada
 
     // Ejecutar la consulta
     unique_ptr<sql::ResultSet> res(connexio.consultaSQL(query));
@@ -112,12 +112,12 @@ vector<DTOSerie> CercadoraContingut::cercaUltimesSeries(const string& modalitat)
         WHERE cap.data_estrena <= NOW()
     )";
 
-    // Si modalitat no está vacío, agregar la condición de subscripción
+    // Si modalitat no esta vacio, agregar la condicion de subscripcion
     if (!modalitat.empty()) {
         query += " AND EXISTS (SELECT 1 FROM usuari u WHERE u.subscripcio = '" + modalitat + "')";
     }
 
-    // Asegúrate de que la consulta esté ordenada por la fecha de estreno (descendente) y limitada a 5
+    // Asegurate de que la consulta este ordenada por la fecha de estreno (descendente) y limitada a 5
     query += " GROUP BY c.titol, c.descripcio, c.qualificacio ORDER BY data_estrena DESC LIMIT 5";
 
     try {
@@ -152,7 +152,7 @@ vector<DTOSerie> CercadoraContingut::cercaUltimesSeries(const string& modalitat)
 int CercadoraContingut::obteUltimaTemporadaEstrena(const std::string& titolSerie) {
     ConnexioBD& connexio = *ConnexioBD::getInstance();
 
-    // Consulta para obtener la última temporada con capítulos estrenados
+    // Consulta para obtener la ultima temporada con capitulos estrenados
     std::string consulta =
         "SELECT MAX(temporada.numero) AS ultima_temporada "
         "FROM temporada "
@@ -175,12 +175,12 @@ int CercadoraContingut::obteUltimaTemporadaEstrena(const std::string& titolSerie
 
 DTOCapitol CercadoraContingut::obteUltimCapitolDeTemporada(const std::string& titolSerie, int ultimaTemporada) {
     if (ultimaTemporada == 0) {
-        throw std::runtime_error("No hi ha capítols disponibles.");
+        throw std::runtime_error("No hi ha capitols disponibles.");
     }
 
     ConnexioBD& connexio = *ConnexioBD::getInstance();
 
-    // Consulta para obtener el último capítulo de la última temporada
+    // Consulta para obtener el ultimo capitulo de la ultima temporada
     std::string consulta =
         "SELECT MAX(numero) AS ultim_capitol, titol, data_estrena, qualificacio "
         "FROM capitol "
@@ -199,7 +199,7 @@ DTOCapitol CercadoraContingut::obteUltimCapitolDeTemporada(const std::string& ti
             resultado->getString("qualificacio"));
     }
     else {
-        throw std::runtime_error("No hi ha capítols disponibles.");
+        throw std::runtime_error("No hi ha capitols disponibles.");
     }
 
     delete resultado;
@@ -269,7 +269,7 @@ DTOSerie CercadoraContingut::cercaSerie(const std::string& titol) {
         resultat = con.consultaSQL(query);
 
         if (!resultat->next()) {
-            throw std::runtime_error("Sèrie no trobada.");
+            throw std::runtime_error("Serie no trobada.");
         }
 
         DTOSerie serie(
@@ -305,7 +305,7 @@ int CercadoraContingut::obtenirNumeroTemporades(const string& titol) {
         resultat = con.consultaSQL(query);
 
         if (!resultat->next()) {
-            throw runtime_error("No s'ha pogut obtenir el número de temporades.");
+            throw runtime_error("No s'ha pogut obtenir el numero de temporades.");
         }
 
         int totalTemporades = resultat->getInt("total_temporades");
@@ -335,7 +335,7 @@ vector<DTOCapitol> CercadoraContingut::obtenirCapitolsPerTemporada(const string&
         resultat = con.consultaSQL(query);
 
         if (!resultat->next()) {
-            throw runtime_error("No s'han trobat capítols per a la temporada indicada.");
+            throw runtime_error("No s'han trobat capitols per a la temporada indicada.");
         }
 
         do {
@@ -361,4 +361,147 @@ vector<DTOCapitol> CercadoraContingut::obtenirCapitolsPerTemporada(const string&
         if (resultat) delete resultat;
         throw runtime_error("Error en la consulta SQL: " + string(e.what()));
     }
+}
+
+vector<DTOVisualitzacioCapitol> CercadoraContingut::cercaVisualitzacionsCapitol(const std::string& sobrenomUsuari) {
+    ConnexioBD& con = *ConnexioBD::getInstance();
+    vector<DTOVisualitzacioCapitol> resultats;
+
+    string query =
+        "SELECT vc.titol_serie, vc.num_capitol, vc.num_temporada, vc.data, vc.num_visualitzacions, "
+        "c.qualificacio "
+        "FROM visualitzacio_capitol vc "
+        "JOIN contingut c ON vc.titol_serie = c.titol "
+        "WHERE vc.sobrenom_usuari = '" + sobrenomUsuari + "'";
+
+    sql::ResultSet* res = con.consultaSQL(query);
+    while (res->next()) {
+        DTOVisualitzacioCapitol dto(
+            res->getString("titol_serie"),
+            res->getInt("num_capitol"),
+            res->getInt("num_temporada"),
+            res->getString("data"),
+            res->getInt("num_visualitzacions"),
+            res->getString("qualificacio")
+        );
+        resultats.push_back(dto);
+    }
+    delete res;
+    return resultats;
+}
+
+std::vector<DTOVisualitzacioPelicula> CercadoraContingut::cercaPelMesVistes() {
+    ConnexioBD& con = *ConnexioBD::getInstance();
+    std::vector<DTOVisualitzacioPelicula> resultats;
+
+    std::string query =
+        "SELECT vp.titol_pelicula, vp.sobrenom_usuari, vp.data, "
+        "SUM(vp.num_visualitzacions) AS num_visualitzacions, "
+        "c.qualificacio, p.duracio "
+        "FROM visualitzacio_pelicula vp "
+        "JOIN pelicula p ON vp.titol_pelicula = p.titol "
+        "JOIN contingut c ON p.titol = c.titol "
+        "GROUP BY vp.titol_pelicula "
+        "ORDER BY num_visualitzacions DESC, vp.data ASC "
+        "LIMIT 5";
+
+    try {
+        sql::ResultSet* res = con.consultaSQL(query);
+
+        while (res->next()) {
+            DTOVisualitzacioPelicula dto(
+                res->getString("titol_pelicula"),
+                res->getString("sobrenom_usuari"),
+                res->getString("data"),
+                res->getInt("num_visualitzacions"),
+                res->getString("qualificacio"),
+                res->getInt("duracio"),
+                ""
+            );
+            resultats.push_back(dto);
+        }
+
+        delete res; // Liberar recursos del resultado.
+    }
+    catch (const sql::SQLException& e) {
+        throw std::runtime_error("Error en cercaMesVistes: " + std::string(e.what()));
+    }
+
+    return resultats;
+}
+
+
+vector<DTOVisualitzacioPelicula> CercadoraContingut::cercaVisualitzacionsPelicula(const std::string& sobrenomUsuari) {
+    ConnexioBD& con = *ConnexioBD::getInstance();
+    std::vector<DTOVisualitzacioPelicula> resultats;
+
+    std::string query =
+        "SELECT vp.titol_pelicula, "
+        "vp.sobrenom_usuari, "
+        "vp.data, "
+        "vp.num_visualitzacions, "
+        "c.qualificacio, "
+        "p.duracio, "
+        "c.descripcio "
+        "FROM visualitzacio_pelicula vp "
+        "JOIN pelicula p ON vp.titol_pelicula = p.titol "
+        "JOIN contingut c ON p.titol = c.titol "
+        "WHERE vp.sobrenom_usuari = '" + sobrenomUsuari + "' "
+        "ORDER BY vp.data DESC;";
+
+    sql::ResultSet* res = con.consultaSQL(query);
+    while (res->next()) {
+        DTOVisualitzacioPelicula dto(
+            res->getString("titol_pelicula"),
+            res->getString("sobrenom_usuari"),
+            res->getString("data"),
+            res->getInt("num_visualitzacions"),
+            res->getString("qualificacio"),
+            res->getInt("duracio"),
+            res->getString("descripcio")
+        );
+
+        resultats.push_back(dto);
+    }
+    delete res;
+    return resultats;
+}
+
+string CercadoraContingut::ConsultaVisualitzacioCapitol(string titolSerie, int numTemporada, int numCapitol) {
+    ConnexioBD& connexio = *ConnexioBD::getInstance();
+    std::ostringstream result;
+
+    try {
+        //Obtenir usuari loggejat
+        PetitFlix& petitFlix = PetitFlix::getInstance();
+        PassarelaUsuari* usuariLoggejat = petitFlix.obtenirUsuariLoggejat();
+        string sobrenomUsuari = usuariLoggejat->getSobrenom();
+
+        //Crear la consulta SQL per obtenir la data de la visualitzacio
+        std::ostringstream query;
+        query << "SELECT data FROM visualitzacio_capitol "
+            << "WHERE sobrenom_usuari = '" << sobrenomUsuari << "' "
+            << "AND titol_serie = '" << titolSerie << "' "
+            << "AND num_temporada = " << numTemporada << " "
+            << "AND num_capitol = " << numCapitol;
+
+        std::unique_ptr<sql::ResultSet> res(connexio.consultaSQL(query.str()));
+
+        if (res->next()) {
+            std::string dataVisualitzacio = res->getString("data");
+
+            //Retornar la data
+            result << dataVisualitzacio;
+        }
+        else {
+            result << "no visualitzat";
+        }
+    }
+    catch (const sql::SQLException& e) {
+        result << "Error al consultar la visualizacion del capitulo: " << e.what();
+    }
+    catch (const std::runtime_error& e) {
+        result << "Error en la consulta: " << e.what();
+    }
+    return result.str();
 }

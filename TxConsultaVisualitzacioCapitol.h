@@ -16,10 +16,10 @@ public:
     TxConsultaVisualitzacioCapitol(const std::string& titolSerie, int numTemporada, int numCapitol)
         : _titolSerie(titolSerie), _numTemporada(numTemporada), _numCapitol(numCapitol) {}
     
-    //Metode per executar la transacció
+    //Metode per executar la transaccio
     void executar();
     
-    //Obtenim el resultat de la transacció
+    //Obtenim el resultat de la transaccio
     std::string obteResultat();
 };
 

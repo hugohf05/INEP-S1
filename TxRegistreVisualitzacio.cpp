@@ -4,6 +4,6 @@
 TxRegistreVisualitzacio::TxRegistreVisualitzacio(const std::string& titolPelicula) : titolPelicula(titolPelicula) {}
 
 void TxRegistreVisualitzacio::executar() {
-    PassarelaVisualitzacio passarela(titolPelicula);
+    PassarelaVisualitzacioPelicula passarela(titolPelicula);
     passarela.registra();
 }

@@ -16,10 +16,10 @@ public:
     TxConsultaNovetatsSerie(const std::string& titolSerie)
         : _titolSerie(titolSerie) {}
 
-    //Metode per executar la transacció
+    //Metode per executar la transaccio
     void executar();
 
-    //Obtenim el resultat de la transacció
+    //Obtenim el resultat de la transaccio
     int obteResultatTemporada();
 
     DTOCapitol obteResultatCapitol();

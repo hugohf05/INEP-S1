@@ -28,7 +28,7 @@ void TxRegistraUsuari::executar() {
     catch (const sql::SQLException& e) {
         std::string errorMessage = e.what();
 
-        // Verifiquem si l'error és de clau duplicada
+        // Verifiquem si l'error es de clau duplicada
         if (errorMessage.find("Duplicate entry") != std::string::npos) {
             // Extreiem el camp afectat de l'error
             if (errorMessage.find("PRIMARY") != std::string::npos) {
@@ -36,7 +36,7 @@ void TxRegistraUsuari::executar() {
             }
         }
 
-        // Si no és un error conegut, llancem un error genèric
+        // Si no es un error conegut, llancem un error genèric
         throw std::runtime_error("Error en registrar l'usuari: " + errorMessage);
     }
 

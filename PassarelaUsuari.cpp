@@ -69,14 +69,18 @@ void PassarelaUsuari::insereix() {
 void PassarelaUsuari::modifica() {
     try {
         ConnexioBD& con = *ConnexioBD::getInstance();
+
         string query = "UPDATE usuari SET nom = '" + nom +
             "', correu_electronic = '" + correu_electronic +
+            "', contrasenya = '" + contrasenya +
+            "', data_naixement = '" + data_naixement +
+            "', subscripcio = '" + subscripcio +
             "' WHERE sobrenom = '" + sobrenom + "'";
+
         con.execSQL(query);
     }
     catch (sql::SQLException& e) {
         throw;
-        //Preguntar
     }
 }
 

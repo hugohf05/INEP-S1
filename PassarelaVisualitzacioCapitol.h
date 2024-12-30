@@ -8,17 +8,22 @@ private:
     string titolSerie;
     int numTemporada;
     int numCapitol;
+    string dataVisualitzacio;
+    int numVisualitzacions;
 
 public:
     
-    //Constructor
+    //Constructors
+    PassarelaVisualitzacioCapitol();
+    PassarelaVisualitzacioCapitol(const string& titol);
     PassarelaVisualitzacioCapitol(const string& titol, int numTemporada, int numCapitol);
     
-    //Metode per executar la transacció
+    //Metode per executar la transaccio
     void registraVisualitzacioCapitol();
-    
-    //Obtenim el resultat de la transacció
-    string ConsultaVisualitzacioCapitol();
+
+    string obteTitol() const;
+    string obteDataVisualitzacio() const;
+    int obteNumVisualitzacions() const;
 };
 
 #endif
